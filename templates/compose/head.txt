@@ -9,4 +9,8 @@ services:
       - LOGGING_LEVEL=DEBUG
     networks:
       - testing_net
+    volumes:
+      - type: bind
+        source: ./server/config.ini
+        target: $HOME/server/config.ini
 

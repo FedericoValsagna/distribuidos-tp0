@@ -9,6 +9,10 @@ services:
       - LOGGING_LEVEL=DEBUG
     networks:
       - testing_net
+    volumes:
+      - type: bind
+        source: ./server/config.ini
+        target: /home/fede/server/config.ini
 
   client1:
     container_name: client1
@@ -21,6 +25,10 @@ services:
       - testing_net
     depends_on:
       - server
+    volumes:
+      - type: bind
+        source: ./client/config.yaml
+        target: /home/fede/client/config.yaml
 
   client2:
     container_name: client2
@@ -33,6 +41,10 @@ services:
       - testing_net
     depends_on:
       - server
+    volumes:
+      - type: bind
+        source: ./client/config.yaml
+        target: /home/fede/client/config.yaml
 
   client3:
     container_name: client3
@@ -45,6 +57,10 @@ services:
       - testing_net
     depends_on:
       - server
+    volumes:
+      - type: bind
+        source: ./client/config.yaml
+        target: /home/fede/client/config.yaml
 
   client4:
     container_name: client4
@@ -57,6 +73,10 @@ services:
       - testing_net
     depends_on:
       - server
+    volumes:
+      - type: bind
+        source: ./client/config.yaml
+        target: /home/fede/client/config.yaml
 
   client5:
     container_name: client5
@@ -69,6 +89,10 @@ services:
       - testing_net
     depends_on:
       - server
+    volumes:
+      - type: bind
+        source: ./client/config.yaml
+        target: /home/fede/client/config.yaml
 
 networks:
   testing_net:

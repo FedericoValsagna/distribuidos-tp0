@@ -9,4 +9,8 @@
       - testing_net
     depends_on:
       - server
+    volumes:
+      - type: bind
+        source: ./client/config.yaml
+        target: $HOME/client/config.yaml
 
