@@ -19,6 +19,14 @@ type ClientConfig struct {
 	LoopPeriod    time.Duration
 }
 
+type ClientBet struct {
+	Name      string
+	Surname   string
+	ID        string
+	Birthday  string
+	BetNumber string
+}
+
 // Client Entity that encapsulates how
 type Client struct {
 	config ClientConfig
@@ -91,4 +99,34 @@ func (c *Client) StartClientLoop() {
 func (c *Client) GracefulShutdown() {
 	c.conn.Close()
 	log.Infof("action: closing_socket | result: success")
+}
+
+func (c *Client) PlaceBet(client_bet ClientBet) {
+	c.createClientSocket()
+	fmt.Fprintf(
+		c.conn,
+		"[CLIENT %v] | Incoming Bet | Nombre: %v | Apellido: %v | Documento: %v | Nacimiento: %v | Numero: %v",
+		c.config.ID,
+		client_bet.Name,
+		client_bet.Surname,
+		client_bet.ID,
+		client_bet.Birthday,
+		client_bet.BetNumber,
+	)
+	msg, err := bufio.NewReader(c.conn).ReadString('\n')
+	c.conn.Close()
+
+	if err != nil {
+		log.Errorf("action: receive_message | result: fail | client_id: %v | error: %v",
+			c.config.ID,
+			err,
+		)
+		return
+	}
+
+	log.Infof("action: receive_message | result: success | client_id: %v | msg: %v",
+		c.config.ID,
+		msg,
+	)
+
 }
