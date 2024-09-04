@@ -1,6 +1,8 @@
 import socket
 import logging
 
+from common.utils import Bet, store_bets
+from common import parser
 
 class Server:
     def __init__(self, port, listen_backlog):
@@ -34,12 +36,9 @@ class Server:
         client socket will also be closed
         """
         try:
-            # TODO: Modify the receive to avoid short-reads
-            msg = client_sock.recv(1024).rstrip().decode('utf-8')
-            addr = client_sock.getpeername()
+            msg, addr = read_message(client_sock)
             logging.info(f'action: receive_message | result: success | ip: {addr[0]} | msg: {msg}')
-            # TODO: Modify the send to avoid short-writes
-            client_sock.send("{}\n".format(msg).encode('utf-8'))
+            message_handler(client_sock, msg)
         except OSError as e:
             logging.error("action: receive_message | result: fail | error: {e}")
         finally:
@@ -65,3 +64,14 @@ class Server:
         self.running = False
         self._server_socket.close()
         return
+
+def message_handler(client_sock: socket, msg: str):
+    client_sock.send(parser.betting_response())
+    bet = parser.decode_betting_message(msg)
+    store_bets([bet])
+
+def read_message(client_sock) -> tuple[str, str]:
+    header = client_sock.recv(4).rstrip()
+    msg_len = header[2]
+    msg = client_sock.recv(msg_len).rstrip().decode('utf-8')
+    return (msg, client_sock.getpeername())

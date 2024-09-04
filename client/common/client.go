@@ -103,17 +103,8 @@ func (c *Client) GracefulShutdown() {
 
 func (c *Client) PlaceBet(client_bet ClientBet) {
 	c.createClientSocket()
-	fmt.Fprintf(
-		c.conn,
-		"[CLIENT %v] | Incoming Bet | Nombre: %v | Apellido: %v | Documento: %v | Nacimiento: %v | Numero: %v",
-		c.config.ID,
-		client_bet.Name,
-		client_bet.Surname,
-		client_bet.ID,
-		client_bet.Birthday,
-		client_bet.BetNumber,
-	)
-	msg, err := bufio.NewReader(c.conn).ReadString('\n')
+	c.conn.Write(PlaceBetMessage(c.config.ID, client_bet))
+	_, err := bufio.NewReader(c.conn).ReadString('\n')
 	c.conn.Close()
 
 	if err != nil {
@@ -124,9 +115,9 @@ func (c *Client) PlaceBet(client_bet ClientBet) {
 		return
 	}
 
-	log.Infof("action: receive_message | result: success | client_id: %v | msg: %v",
-		c.config.ID,
-		msg,
+	log.Infof("action: apuesta_enviada | result: success | dni: %v | numero: %v",
+		client_bet.ID,
+		client_bet.BetNumber,
 	)
 
 }

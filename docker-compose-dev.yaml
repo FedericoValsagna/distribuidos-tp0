@@ -42,6 +42,11 @@ services:
     environment:
       - CLI_ID=2
       - CLI_LOG_LEVEL=DEBUG
+      - NOMBRE=Agustin Emanuel
+      - APELLIDO=Zambrano
+      - DOCUMENTO=30904466
+      - NACIMIENTO=2000-03-17
+      - NUMERO=7575
     networks:
       - testing_net
     depends_on:
@@ -58,6 +63,11 @@ services:
     environment:
       - CLI_ID=3
       - CLI_LOG_LEVEL=DEBUG
+      - NOMBRE=Federico Martín
+      - APELLIDO=Valsagna Indri
+      - DOCUMENTO=43030690
+      - NACIMIENTO=2000-11-17
+      - NUMERO=1314
     networks:
       - testing_net
     depends_on:
@@ -74,6 +84,11 @@ services:
     environment:
       - CLI_ID=4
       - CLI_LOG_LEVEL=DEBUG
+      - NOMBRE=Tiago Nicolás
+      - APELLIDO=Rivera
+      - DOCUMENTO=46060230
+      - NACIMIENTO=1999-10-17
+      - NUMERO=1413
     networks:
       - testing_net
     depends_on:
@@ -90,6 +105,11 @@ services:
     environment:
       - CLI_ID=5
       - CLI_LOG_LEVEL=DEBUG
+      - NOMBRE=Lionel Andrés
+      - APELLIDO=Messi
+      - DOCUMENTO=32020320
+      - NACIMIENTO=1986-03-17
+      - NUMERO=1010
     networks:
       - testing_net
     depends_on:
