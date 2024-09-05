@@ -1,3 +1,6 @@
+volumes:
+  agencies:
+
 networks:
   testing_net:
     ipam:
