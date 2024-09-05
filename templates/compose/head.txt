@@ -12,5 +12,5 @@ services:
     volumes:
       - type: bind
         source: ./server/config.ini
-        target: $HOME/server/config.ini
+        target: $PWD/server/config.ini
 

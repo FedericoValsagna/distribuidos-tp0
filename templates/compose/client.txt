@@ -12,5 +12,5 @@
     volumes:
       - type: bind
         source: ./client/config.yaml
-        target: $HOME/client/config.yaml
+        target: $PWD/client/config.yaml
 
