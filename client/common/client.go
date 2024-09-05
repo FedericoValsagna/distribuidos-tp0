@@ -65,7 +65,7 @@ func (c *Client) GracefulShutdown() {
 	log.Infof("action: closing_socket | result: success")
 }
 
-func (c *Client) PlaceBets() {
+func (c *Client) StartClient() {
 	lines, readFileErr := c.ReadFile()
 	if readFileErr != nil {
 		log.Errorf("action: open_bets_file | result: fail | client_id: %v | error: %v",
@@ -74,21 +74,8 @@ func (c *Client) PlaceBets() {
 		)
 		return
 	}
-	for i := 0; i <= len(lines); i += c.config.BatchMax {
-		c.createClientSocket()
-		batchSize := BatchSize(i, c.config.BatchMax, len(lines))
-		clientBets := generateClientsBets(lines[i : i+batchSize])
-		c.conn.Write(BatchBetsMessage(c.config.ID, clientBets))
-		_, err := bufio.NewReader(c.conn).ReadString('\n')
-		if err != nil {
-			log.Errorf("action: receive_message | result: fail | client_id: %v | error: %v",
-				c.config.ID,
-				err,
-			)
-			return
-		}
-		c.conn.Close()
-	}
+	c.placeBets(lines)
+	c.notifyForWinner()
 }
 
 func (c *Client) ReadFile() ([]string, error) {
@@ -101,6 +88,37 @@ func (c *Client) ReadFile() ([]string, error) {
 	}
 	var lines []string = strings.Split(string(data), "\r\n")
 	return lines, nil
+}
+func (c *Client) placeBets(betLines []string) {
+	for i := 0; i <= len(betLines); i += c.config.BatchMax {
+		c.createClientSocket()
+		batchSize := BatchSize(i, c.config.BatchMax, len(betLines))
+		clientBets := GenerateClientsBets(betLines[i : i+batchSize])
+		c.conn.Write(BatchBetsMessage(c.config.ID, clientBets))
+		_, err := bufio.NewReader(c.conn).ReadString('\n')
+		if err != nil {
+			log.Errorf("action: receive_message | result: fail | client_id: %v | error: %v",
+				c.config.ID,
+				err,
+			)
+			return
+		}
+		c.conn.Close()
+	}
+}
+func (c *Client) notifyForWinner() {
+	c.createClientSocket()
+	c.conn.Write(FinishedBetsMessage(c.config.ID))
+	msg, err := bufio.NewReader(c.conn).ReadString('\n')
+	if err != nil {
+		log.Errorf("action: receive_message | result: fail | client_id: %v | error: %v",
+			c.config.ID,
+			err,
+		)
+		return
+	}
+	winners := DecodeWinnersMessage(msg)
+	log.Infof("action: consulta_ganadores | result: success | cant_ganadores: %v", len(winners))
 }
 
 func BatchSize(i int, batchMax int, linesLength int) int {

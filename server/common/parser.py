@@ -25,3 +25,14 @@ def decode_multibet_message(msg: str) -> tuple[list[Bet], bool]:
             continue
         bets.append(Bet(agency=client_agency, first_name=bet[0], last_name=bet[1], document=bet[2], birthdate=bet[3], number=bet[4]))
     return bets, error
+
+
+def decode_finished_bets_message(msg: str) -> str:
+    return msg[0]
+
+def winner_bet_response(winner_ids: list) -> bytes:
+    payload = ""
+    for winner_id in winner_ids:
+        payload += winner_id + "_"
+    payload = payload[:len(payload) - 1]
+    return ("W_" + payload + "\n").encode('utf-8')

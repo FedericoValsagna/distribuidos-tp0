@@ -114,7 +114,7 @@ func main() {
 	}
 	client := common.NewClient(clientConfig)
 	go SignalHandling(client)
-	client.PlaceBets()
+	client.StartClient()
 }
 
 func SignalHandling(client *common.Client) {

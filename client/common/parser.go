@@ -16,10 +16,7 @@ func PlaceBetMessage(clientID string, clientBet ClientBet) []byte {
 		clientBet.ID,
 		clientBet.Birthday,
 		clientBet.BetNumber)
-
-	var payloadLength rune = rune(len(payload))
-	var header string = "B_" + string(payloadLength) + "_"
-	return []byte(header + payload)
+	return formMessage("B_", payload)
 }
 
 func BatchBetsMessage(clientID string, clientsBet []ClientBet) []byte {
@@ -34,18 +31,13 @@ func BatchBetsMessage(clientID string, clientsBet []ClientBet) []byte {
 		payload += payloadLine
 	}
 	payload = strings.TrimSuffix(payload, "$")
-
-	var payloadLength uint32 = uint32(len(payload))
-	buf := new(bytes.Buffer)
-	_ = binary.Write(buf, binary.BigEndian, payloadLength)
-	x := (buf.Bytes())
-	var header []byte = append([]byte("G_"), x...)
-	header = append(header, []byte("_")...)
-	msg := append(header, []byte(payload)...)
-	return []byte(msg)
+	return formMessage("G_", payload)
+}
+func FinishedBetsMessage(clientID string) []byte {
+	return formMessage("F_", clientID)
 }
 
-func generateClientBet(line string) ClientBet {
+func GenerateClientBet(line string) ClientBet {
 	fields := strings.Split(line, ",")
 	return ClientBet{
 		Name:      fields[0],
@@ -56,10 +48,28 @@ func generateClientBet(line string) ClientBet {
 	}
 }
 
-func generateClientsBets(lines []string) []ClientBet {
+func GenerateClientsBets(lines []string) []ClientBet {
 	clientBets := make([]ClientBet, len(lines))
 	for i, line := range lines {
-		clientBets[i] = generateClientBet(line)
+		clientBets[i] = GenerateClientBet(line)
 	}
 	return clientBets
+}
+
+func DecodeWinnersMessage(msg string) []string {
+	msg = strings.TrimSuffix(msg, "\n")
+	msg = strings.TrimSuffix(msg, "_")
+	lines := strings.Split(msg, "_")
+	lines = lines[1:]
+	return lines
+}
+func formMessage(opcode string, payload string) []byte {
+	var payloadLength uint32 = uint32(len(payload))
+	buf := new(bytes.Buffer)
+	_ = binary.Write(buf, binary.BigEndian, payloadLength)
+	payloadLenghtAsBytes := (buf.Bytes())
+	var header []byte = append([]byte(opcode), payloadLenghtAsBytes...)
+	header = append(header, []byte("_")...)
+	msg := append(header, []byte(payload)...)
+	return []byte(msg)
 }
