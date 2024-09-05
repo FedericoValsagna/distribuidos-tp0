@@ -10,10 +10,7 @@ services:
     networks:
       - testing_net
     volumes:
-      - type: bind
-        source: ./server/config.ini
-        target: /home/fede/Uba/Distribuidos/TP0/server/config.ini
-
+      - /home/fede/Uba/Distribuidos/TP0/server/config.ini:/server/config.ini
   client1:
     container_name: client1
     image: client:latest
@@ -26,9 +23,7 @@ services:
     depends_on:
       - server
     volumes:
-      - type: bind
-        source: ./client/config.yaml
-        target: /home/fede/Uba/Distribuidos/TP0/client/config.yaml
+      - /home/fede/Uba/Distribuidos/TP0/client/config.yaml:/config.yaml
 
   client2:
     container_name: client2
@@ -42,9 +37,7 @@ services:
     depends_on:
       - server
     volumes:
-      - type: bind
-        source: ./client/config.yaml
-        target: /home/fede/Uba/Distribuidos/TP0/client/config.yaml
+      - /home/fede/Uba/Distribuidos/TP0/client/config.yaml:/config.yaml
 
   client3:
     container_name: client3
@@ -58,9 +51,7 @@ services:
     depends_on:
       - server
     volumes:
-      - type: bind
-        source: ./client/config.yaml
-        target: /home/fede/Uba/Distribuidos/TP0/client/config.yaml
+      - /home/fede/Uba/Distribuidos/TP0/client/config.yaml:/config.yaml
 
 networks:
   testing_net:

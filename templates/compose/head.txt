@@ -10,7 +10,4 @@ services:
     networks:
       - testing_net
     volumes:
-      - type: bind
-        source: ./server/config.ini
-        target: $PWD/server/config.ini
-
+      - $PWD/server/config.ini:/server/config.ini
