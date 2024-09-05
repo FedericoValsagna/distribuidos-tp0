@@ -16,25 +16,26 @@ func PlaceBetMessage(clientID string, clientBet ClientBet) []byte {
 		clientBet.ID,
 		clientBet.Birthday,
 		clientBet.BetNumber)
-	return formMessage("B_", payload)
+	return formMessage(PlaceBetHeader, payload)
 }
 
 func BatchBetsMessage(clientID string, clientsBet []ClientBet) []byte {
 	var payload = fmt.Sprintf("%v_", clientID)
 	for _, bet := range clientsBet {
-		var payloadLine string = fmt.Sprintf("%v_%v_%v_%v_%v$",
+		var payloadLine string = fmt.Sprintf("%v_%v_%v_%v_%v%v",
 			bet.Name,
 			bet.Surname,
 			bet.ID,
 			bet.Birthday,
-			bet.BetNumber)
+			bet.BetNumber,
+			BetSpitter)
 		payload += payloadLine
 	}
-	payload = strings.TrimSuffix(payload, "$")
-	return formMessage("G_", payload)
+	payload = strings.TrimSuffix(payload, BetSpitter)
+	return formMessage(BatchBetHeader, payload)
 }
 func FinishedBetsMessage(clientID string) []byte {
-	return formMessage("F_", clientID)
+	return formMessage(FinishedBetHeader, clientID)
 }
 
 func GenerateClientBet(line string) ClientBet {
@@ -58,8 +59,8 @@ func GenerateClientsBets(lines []string) []ClientBet {
 
 func DecodeWinnersMessage(msg string) []string {
 	msg = strings.TrimSuffix(msg, "\n")
-	msg = strings.TrimSuffix(msg, "_")
-	lines := strings.Split(msg, "_")
+	msg = strings.TrimSuffix(msg, Splitter)
+	lines := strings.Split(msg, Splitter)
 	lines = lines[1:]
 	return lines
 }
@@ -69,7 +70,7 @@ func formMessage(opcode string, payload string) []byte {
 	_ = binary.Write(buf, binary.BigEndian, payloadLength)
 	payloadLenghtAsBytes := (buf.Bytes())
 	var header []byte = append([]byte(opcode), payloadLenghtAsBytes...)
-	header = append(header, []byte("_")...)
+	header = append(header, []byte(Splitter)...)
 	msg := append(header, []byte(payload)...)
 	return []byte(msg)
 }
