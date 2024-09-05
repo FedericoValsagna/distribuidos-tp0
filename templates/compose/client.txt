@@ -13,4 +13,5 @@
       - type: bind
         source: ./client/config.yaml
         target: $HOME/client/config.yaml
+      - /home/fede/Uba/Distribuidos/TP0/.data/dataset:/agencies
 

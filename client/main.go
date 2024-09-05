@@ -110,18 +110,11 @@ func main() {
 		ID:            v.GetString("id"),
 		LoopAmount:    v.GetInt("loop.amount"),
 		LoopPeriod:    v.GetDuration("loop.period"),
-	}
-	client_bet := common.ClientBet{
-		Name:      os.Getenv("NOMBRE"),
-		Surname:   os.Getenv("APELLIDO"),
-		ID:        os.Getenv("DOCUMENTO"),
-		Birthday:  os.Getenv("NACIMIENTO"),
-		BetNumber: os.Getenv("NUMERO"),
+		BatchMax:      v.GetInt("batch.maxAmount"),
 	}
 	client := common.NewClient(clientConfig)
 	go SignalHandling(client)
-	// client.StartClientLoop()
-	client.PlaceBet(client_bet)
+	client.PlaceBets()
 }
 
 func SignalHandling(client *common.Client) {

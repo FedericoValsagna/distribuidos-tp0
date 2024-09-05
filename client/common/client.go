@@ -4,6 +4,8 @@ import (
 	"bufio"
 	"fmt"
 	"net"
+	"os"
+	"strings"
 	"time"
 
 	"github.com/op/go-logging"
@@ -17,6 +19,7 @@ type ClientConfig struct {
 	ServerAddress string
 	LoopAmount    int
 	LoopPeriod    time.Duration
+	BatchMax      int
 }
 
 type ClientBet struct {
@@ -57,25 +60,26 @@ func (c *Client) createClientSocket() error {
 	c.conn = conn
 	return nil
 }
+func (c *Client) GracefulShutdown() {
+	c.conn.Close()
+	log.Infof("action: closing_socket | result: success")
+}
 
-// StartClientLoop Send messages to the client until some time threshold is met
-func (c *Client) StartClientLoop() {
-	// There is an autoincremental msgID to identify every message sent
-	// Messages if the message amount threshold has not been surpassed
-	for msgID := 1; msgID <= c.config.LoopAmount; msgID++ {
-		// Create the connection the server in every loop iteration. Send an
-		c.createClientSocket()
-
-		// TODO: Modify the send to avoid short-write
-		fmt.Fprintf(
-			c.conn,
-			"[CLIENT %v] Message N°%v\n",
+func (c *Client) PlaceBets() {
+	lines, readFileErr := c.ReadFile()
+	if readFileErr != nil {
+		log.Errorf("action: open_bets_file | result: fail | client_id: %v | error: %v",
 			c.config.ID,
-			msgID,
+			readFileErr,
 		)
-		msg, err := bufio.NewReader(c.conn).ReadString('\n')
-		c.conn.Close()
-
+		return
+	}
+	for i := 0; i <= len(lines); i += c.config.BatchMax {
+		c.createClientSocket()
+		batchSize := BatchSize(i, c.config.BatchMax, len(lines))
+		clientBets := generateClientsBets(lines[i : i+batchSize])
+		c.conn.Write(BatchBetsMessage(c.config.ID, clientBets))
+		_, err := bufio.NewReader(c.conn).ReadString('\n')
 		if err != nil {
 			log.Errorf("action: receive_message | result: fail | client_id: %v | error: %v",
 				c.config.ID,
@@ -83,41 +87,26 @@ func (c *Client) StartClientLoop() {
 			)
 			return
 		}
-
-		log.Infof("action: receive_message | result: success | client_id: %v | msg: %v",
-			c.config.ID,
-			msg,
-		)
-
-		// Wait a time between sending one message and the next one
-		time.Sleep(c.config.LoopPeriod)
-
+		c.conn.Close()
 	}
-	log.Infof("action: loop_finished | result: success | client_id: %v", c.config.ID)
 }
 
-func (c *Client) GracefulShutdown() {
-	c.conn.Close()
-	log.Infof("action: closing_socket | result: success")
-}
-
-func (c *Client) PlaceBet(client_bet ClientBet) {
-	c.createClientSocket()
-	c.conn.Write(PlaceBetMessage(c.config.ID, client_bet))
-	_, err := bufio.NewReader(c.conn).ReadString('\n')
-	c.conn.Close()
-
+func (c *Client) ReadFile() ([]string, error) {
+	data, err := os.ReadFile(fmt.Sprintf("agencies/agency-%v.csv", c.config.ID))
 	if err != nil {
 		log.Errorf("action: receive_message | result: fail | client_id: %v | error: %v",
 			c.config.ID,
-			err,
 		)
-		return
+		return nil, err
 	}
+	var lines []string = strings.Split(string(data), "\r\n")
+	return lines, nil
+}
 
-	log.Infof("action: apuesta_enviada | result: success | dni: %v | numero: %v",
-		client_bet.ID,
-		client_bet.BetNumber,
-	)
-
+func BatchSize(i int, batchMax int, linesLength int) int {
+	if linesLength-i < batchMax {
+		return linesLength - i - 1
+	} else {
+		return batchMax
+	}
 }

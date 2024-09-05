@@ -21,8 +21,6 @@ class Server:
         finishes, servers starts to accept new connections again
         """
 
-        # TODO: Modify this program to handle signal to graceful shutdown
-        # the server
         while self.running:
             client_sock = self.__accept_new_connection()
             if client_sock != None:
@@ -36,9 +34,7 @@ class Server:
         client socket will also be closed
         """
         try:
-            msg, addr = read_message(client_sock)
-            logging.info(f'action: receive_message | result: success | ip: {addr[0]} | msg: {msg}')
-            message_handler(client_sock, msg)
+            read_message(client_sock)
         except OSError as e:
             logging.error("action: receive_message | result: fail | error: {e}")
         finally:
@@ -65,13 +61,33 @@ class Server:
         self._server_socket.close()
         return
 
-def message_handler(client_sock: socket, msg: str):
+def single_bet_message(client_sock: socket, msg: str):
     client_sock.send(parser.betting_response())
-    bet = parser.decode_betting_message(msg)
+    bet: Bet = parser.decode_betting_message(msg)
     store_bets([bet])
+    
 
-def read_message(client_sock) -> tuple[str, str]:
-    header = client_sock.recv(4).rstrip()
-    msg_len = header[2]
+def multi_bet_message(client_sock: socket, msg: str):
+    bets, error  = parser.decode_multibet_message(msg)
+    if len(bets) > 0:
+        store_bets(bets)
+    if error:
+        logging.info(f"action: apuesta_recibida   | result: fail | cantidad: {len(bets)}")
+        client_sock.send(parser.unsuccesful_betting_response())
+        return
+    logging.info(f"action: apuesta_recibida   | result: success | cantidad: {len(bets)}")
+    client_sock.send(parser.betting_response())
+
+def read_message(client_sock: socket):
+    header = client_sock.recv(7)
+    msg_len = int.from_bytes(header[2:6], "big", signed=False)
+    header = header[0:1].decode('utf-8')
     msg = client_sock.recv(msg_len).rstrip().decode('utf-8')
-    return (msg, client_sock.getpeername())
+    code_name = header[0]
+    if code_name == "B":
+        single_bet_message(client_sock, msg)
+    elif code_name == "G":
+        multi_bet_message(client_sock, msg)
+    else:
+        logging.info("Invalid message")
+    
