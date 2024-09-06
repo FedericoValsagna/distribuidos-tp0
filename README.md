@@ -19,7 +19,7 @@
 ```
 make docker-compose-up
 ```
-#### Ejercicio 6 y 7
+#### Ejercicio 6, 7 y 8
 ```
 ./generar-compose.sh docker-compose-dev.yaml 5 && make docker-compose-up
 ```

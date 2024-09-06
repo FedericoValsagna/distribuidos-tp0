@@ -90,11 +90,13 @@ func (c *Client) ReadFile() ([]string, error) {
 	return lines, nil
 }
 func (c *Client) placeBets(betLines []string) {
+	c.createClientSocket()
 	for i := 0; i <= len(betLines); i += c.config.BatchMax {
-		c.createClientSocket()
 		batchSize := BatchSize(i, c.config.BatchMax, len(betLines))
 		clientBets := GenerateClientsBets(betLines[i : i+batchSize])
-		c.conn.Write(BatchBetsMessage(c.config.ID, clientBets))
+		msg := BatchBetsMessage(c.config.ID, clientBets)
+		// log.Infof("Sending message: %v", msg)
+		c.conn.Write(msg)
 		_, err := bufio.NewReader(c.conn).ReadString('\n')
 		if err != nil {
 			log.Errorf("action: receive_message | result: fail | client_id: %v | error: %v",
@@ -103,12 +105,11 @@ func (c *Client) placeBets(betLines []string) {
 			)
 			return
 		}
-		c.conn.Close()
 	}
 }
 func (c *Client) notifyForWinner() {
-	c.createClientSocket()
 	c.conn.Write(FinishedBetsMessage(c.config.ID))
+	// log.Infof("action: all_bets_sent | result: sucess |")
 	msg, err := bufio.NewReader(c.conn).ReadString('\n')
 	if err != nil {
 		log.Errorf("action: receive_message | result: fail | client_id: %v | error: %v",
@@ -119,6 +120,7 @@ func (c *Client) notifyForWinner() {
 	}
 	winners := DecodeWinnersMessage(msg)
 	log.Infof("action: consulta_ganadores | result: success | cant_ganadores: %v", len(winners))
+	c.conn.Close()
 }
 
 func BatchSize(i int, batchMax int, linesLength int) int {
