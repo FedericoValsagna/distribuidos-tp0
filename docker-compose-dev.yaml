@@ -1,4 +1,3 @@
-version: "3.7"
 name: tp0
 services:
   server:
@@ -14,7 +13,6 @@ services:
       - type: bind
         source: /home/fede/Uba/Distribuidos/TP0/server/config.ini
         target: /config.ini
-
   client1:
     container_name: client1
     image: client:latest

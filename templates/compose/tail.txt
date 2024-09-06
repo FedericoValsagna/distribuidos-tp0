@@ -1,7 +1,3 @@
-volumes:
-  /server/config.ini:
-  /client/config.yaml:
-
 networks:
   testing_net:
     ipam:

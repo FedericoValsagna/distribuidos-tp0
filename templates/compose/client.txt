@@ -10,5 +10,7 @@
     depends_on:
       - server
     volumes:
-      - $PWD/client/config.yaml:/client/config.yaml
+      - type: bind
+        source: $PWD/client/config.yaml
+        target: /config.yaml
 
