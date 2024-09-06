@@ -3,7 +3,7 @@ services:
   server:
     container_name: server
     image: server:latest
-    entrypoint: python3 /main.py
+    entrypoint: python3 main.py
     environment:
       - PYTHONUNBUFFERED=1
       - LOGGING_LEVEL=DEBUG
@@ -12,13 +12,45 @@ services:
     volumes:
       - type: bind
         source: /home/fede/Uba/Distribuidos/TP0/server/config.ini
-        target: /config.ini
+        target: /server/config.ini
   client1:
     container_name: client1
     image: client:latest
     entrypoint: /client
     environment:
       - CLI_ID=1
+      - CLI_LOG_LEVEL=DEBUG
+    networks:
+      - testing_net
+    depends_on:
+      - server
+    volumes:
+      - type: bind
+        source: /home/fede/Uba/Distribuidos/TP0/client/config.yaml
+        target: /config.yaml
+
+  client2:
+    container_name: client2
+    image: client:latest
+    entrypoint: /client
+    environment:
+      - CLI_ID=2
+      - CLI_LOG_LEVEL=DEBUG
+    networks:
+      - testing_net
+    depends_on:
+      - server
+    volumes:
+      - type: bind
+        source: /home/fede/Uba/Distribuidos/TP0/client/config.yaml
+        target: /config.yaml
+
+  client3:
+    container_name: client3
+    image: client:latest
+    entrypoint: /client
+    environment:
+      - CLI_ID=3
       - CLI_LOG_LEVEL=DEBUG
     networks:
       - testing_net
