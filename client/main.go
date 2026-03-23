@@ -122,8 +122,8 @@ func SignalHandling(client *common.Client) {
 	for signal := range c {
 		switch signal {
 		case syscall.SIGTERM:
-			// Probably shoud lock this.
 			client.GracefulShutdown()
+			return
 		}
 	}
 }
