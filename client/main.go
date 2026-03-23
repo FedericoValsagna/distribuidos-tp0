@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 	"os"
+	"os/signal"
 	"strings"
+	"syscall"
 	"time"
 
 	"github.com/op/go-logging"
@@ -109,7 +111,19 @@ func main() {
 		LoopAmount:    v.GetInt("loop.amount"),
 		LoopPeriod:    v.GetDuration("loop.period"),
 	}
-
 	client := common.NewClient(clientConfig)
+	go SignalHandling(client)
 	client.StartClientLoop()
+}
+
+func SignalHandling(client *common.Client) {
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, syscall.SIGTERM)
+	for signal := range c {
+		switch signal {
+		case syscall.SIGTERM:
+			// Probably shoud lock this.
+			client.GracefulShutdown()
+		}
+	}
 }
