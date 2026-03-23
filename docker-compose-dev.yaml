@@ -24,19 +24,6 @@ services:
     volumes:
       - /home/fede/Uba/Distribuidos/tp0/tp/client/config.yaml:/config.yaml
 
-  client2:
-    container_name: client2
-    image: client:latest
-    entrypoint: /client
-    environment:
-      - CLI_ID=2
-    networks:
-      - testing_net
-    depends_on:
-      - server
-    volumes:
-      - /home/fede/Uba/Distribuidos/tp0/tp/client/config.yaml:/config.yaml
-
 
 networks:
   testing_net:
