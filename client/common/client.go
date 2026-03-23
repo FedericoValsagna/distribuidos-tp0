@@ -32,6 +32,7 @@ func NewClient(config ClientConfig) *Client {
 	client := &Client{
 		config: config,
 	}
+	client.running = true
 	return client
 }
 
