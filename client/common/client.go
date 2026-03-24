@@ -36,6 +36,7 @@ type Client struct {
 	conn    net.Conn
 	running bool
 	info    Bet
+	file    *os.File
 }
 
 // NewClient Initializes a new client receiving the configuration
@@ -73,6 +74,7 @@ func (c *Client) StartClientLoop() {
 	fmt.Println("BATCH AMOUNT:", c.config.BatchAmount)
 
 	file, err := os.Open(fmt.Sprintf(AgencyFilepath, c.config.ID))
+	c.file = file
 	if err != nil {
 		log.Errorf("Error reading file")
 		return
@@ -96,6 +98,7 @@ func (c *Client) StartClientLoop() {
 		}
 		c.conn.Close()
 	}
+	file.Close()
 	c.conn.Close()
 	log.Infof("action: loop_finished | result: success | client_id: %v", c.config.ID)
 }
@@ -128,6 +131,7 @@ func (c *Client) ReceiveMessage() (string, error) {
 func (c *Client) GracefulShutdown() {
 	c.running = false
 	c.conn.Close()
+	c.file.Close()
 	log.Infof("action: closing_socket | result: success")
 }
 

@@ -44,16 +44,12 @@ class Server:
                 return
             addr = client_sock.getpeername()
             logging.info(f'action: receive_message | result: success | ip: {addr[0]} | msg: {msg}')
-            # logging.info(f'Message length: {len(to_bytes(msg))}')
             bets = parse_message(msg)
             store_bets(bets)
             logging.info(f'action: apuesta_recibida | result: success | cantidad: {len(bets)}')
             msg = "Apuesta recibida"
             msg = fill_padding(msg)
-            # print(f"largo del mensaje en bytes: {len(to_bytes(msg))}")
-            # print(f"Mensaje enviado: '{msg}'")
             client_sock.send(msg.encode('utf-8'))
-            # client_sock.send("{}\n".format(msg).encode('utf-8'))
         except OSError as e:
             logging.error("action: receive_message | result: fail | error: {e}")
         finally:
