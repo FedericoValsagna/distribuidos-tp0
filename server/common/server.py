@@ -45,7 +45,7 @@ class Server:
             # TODO: Modify the send to avoid short-writes
             bet = parse_message(msg)
             store_bets([bet])
-            logging.info(f'action: apuesta_almacenada | result: success | dni: ${bet.document} | numero: ${bet.number}')
+            logging.info(f'action: apuesta_almacenada | result: success | dni: {bet.document} | numero: {bet.number}')
             msg = "Apuesta recibida"
             msg = fill_padding(msg)
             # print(f"largo del mensaje en bytes: {len(to_bytes(msg))}")
