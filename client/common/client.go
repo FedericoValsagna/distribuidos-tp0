@@ -20,8 +20,9 @@ type ClientConfig struct {
 	ServerAddress string
 	LoopAmount    int
 	LoopPeriod    time.Duration
+	BatchAmount   int
 }
-type ClientInfo struct {
+type Bet struct {
 	Nombre     string
 	Apellido   string
 	Documento  string
@@ -34,12 +35,12 @@ type Client struct {
 	config  ClientConfig
 	conn    net.Conn
 	running bool
-	info    ClientInfo
+	info    Bet
 }
 
 // NewClient Initializes a new client receiving the configuration
 // as a parameter
-func NewClient(config ClientConfig, info ClientInfo) *Client {
+func NewClient(config ClientConfig, info Bet) *Client {
 	client := &Client{
 		config: config,
 		info:   info,
@@ -69,26 +70,21 @@ func (c *Client) StartClientLoop() {
 	// Messages if the message amount threshold has not been surpassed
 	// Create the connection the server in every loop iteration. Send an
 
-	f, err := os.Open(fmt.Sprintf(AgencyFilepath, c.config.ID))
+	fmt.Println("BATCH AMOUNT:", c.config.BatchAmount)
+
+	file, err := os.Open(fmt.Sprintf(AgencyFilepath, c.config.ID))
 	if err != nil {
 		log.Errorf("Error reading file")
 		return
 	}
-	for {
+	keepLooping := true
+	for keepLooping {
 		c.createClientSocket()
-		line, err := ReadLine(f)
+		bets, err := GetNextBets(file, c.config.BatchAmount)
 		if err == io.EOF {
-			c.conn.Close()
-			break
+			keepLooping = false
 		}
-		if err != nil {
-			log.Errorf("Error reading file")
-			c.conn.Close()
-			return
-		}
-		fmt.Println("Linea: ", line)
-		info := lineToClientInfo(line)
-		msg := BetMessage(&info, c.config.ID)
+		msg := BatchBetMessage(bets, c.config.ID)
 		c.SendMessage(msg)
 		msg, err = c.ReceiveMessage()
 		if err != nil {
@@ -100,6 +96,7 @@ func (c *Client) StartClientLoop() {
 		}
 		c.conn.Close()
 	}
+	c.conn.Close()
 	log.Infof("action: loop_finished | result: success | client_id: %v", c.config.ID)
 }
 
@@ -156,10 +153,10 @@ func ReadLine(f *os.File) (string, error) {
 
 }
 
-func lineToClientInfo(line string) ClientInfo {
+func lineToClientInfo(line string) Bet {
 	// fmt.Println("LINEA:", x)
 	values := strings.Split(line, ",")
-	clientInfo := ClientInfo{
+	clientInfo := Bet{
 		Nombre:     values[0],
 		Apellido:   values[1],
 		Documento:  values[2],
@@ -167,4 +164,33 @@ func lineToClientInfo(line string) ClientInfo {
 		Numero:     values[4],
 	}
 	return clientInfo
+}
+
+func GetNextBets(file *os.File, amount int) ([]Bet, error) {
+	bets := make([]Bet, 0)
+	for i := 0; i < amount; i++ {
+		bet, err := GetNextBet(file)
+		if err == io.EOF {
+			return bets, err
+		}
+		if err != nil {
+			return bets, err
+		}
+		bets = append(bets, bet)
+	}
+	return bets, nil
+}
+
+func GetNextBet(file *os.File) (Bet, error) {
+	line, err := ReadLine(file)
+	if err == io.EOF {
+		if len(line) > 0 {
+			return lineToClientInfo(line), err
+		}
+		return Bet{}, err
+	}
+	if err != nil {
+		return Bet{}, err
+	}
+	return lineToClientInfo(line), nil
 }

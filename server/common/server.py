@@ -2,9 +2,10 @@ import socket
 import logging
 from common.utils import Bet
 from common.utils import store_bets
-PACKET_SIZE = 61
+PACKET_SIZE = 8192
 PADDING = '$'
 SEPARATOR = '_'
+BET_SEPARATOR = "!"
 class Server:
     def __init__(self, port, listen_backlog):
         # Initialize server socket
@@ -44,9 +45,9 @@ class Server:
             addr = client_sock.getpeername()
             logging.info(f'action: receive_message | result: success | ip: {addr[0]} | msg: {msg}')
             # logging.info(f'Message length: {len(to_bytes(msg))}')
-            bet = parse_message(msg)
-            store_bets([bet])
-            logging.info(f'action: apuesta_almacenada | result: success | dni: {bet.document} | numero: {bet.number}')
+            bets = parse_message(msg)
+            store_bets(bets)
+            logging.info(f'action: apuesta_recibida | result: success | cantidad: {len(bets)}')
             msg = "Apuesta recibida"
             msg = fill_padding(msg)
             # print(f"largo del mensaje en bytes: {len(to_bytes(msg))}")
@@ -84,14 +85,23 @@ def to_bytes(string):
     return b
 
 
-def parse_message(msg: str) -> Bet:
+def parse_message(msg: str) -> list[Bet]:
     # Drop Padding
     msg = msg.split(PADDING)
     msg = msg[0]
+    msg = msg.split(BET_SEPARATOR)
     # Get Fields
-    fields = msg.split(SEPARATOR)
-    return Bet(fields[5], fields[0], fields[1], fields[2], fields[3], fields[4])
+    bets = []
+    id = msg[0]
+    for i in range(1, len(msg)):
+        bet = get_bet(msg[i], id)
+        bets.append(bet)
+    return bets
 
+
+def get_bet(msg: str, id) -> Bet:
+    fields = msg.split(SEPARATOR)
+    return Bet(id, fields[0], fields[1], fields[2], fields[3], fields[4])
 
 def fill_padding(msg: str) -> str:
     b = to_bytes(msg)

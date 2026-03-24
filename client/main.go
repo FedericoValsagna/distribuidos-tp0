@@ -89,6 +89,7 @@ func PrintConfig(v *viper.Viper) {
 		v.GetInt("loop.amount"),
 		v.GetDuration("loop.period"),
 		v.GetString("log.level"),
+		v.GetInt("batch.maxAmount"),
 	)
 }
 
@@ -110,8 +111,9 @@ func main() {
 		ID:            v.GetString("id"),
 		LoopAmount:    v.GetInt("loop.amount"),
 		LoopPeriod:    v.GetDuration("loop.period"),
+		BatchAmount:   v.GetInt("batch.maxAmount"),
 	}
-	clientInfo := common.ClientInfo{
+	clientInfo := common.Bet{
 		Nombre:     "Fede",
 		Apellido:   "Valsagna",
 		Documento:  "12345678",
