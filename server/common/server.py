@@ -37,12 +37,13 @@ class Server:
         client socket will also be closed
         """
         try:
-            # TODO: Modify the receive to avoid short-reads
-            msg = client_sock.recv(PACKET_SIZE).rstrip().decode('utf-8')
+            msg = client_sock.recv(PACKET_SIZE).decode('utf-8')
+            if len(msg) == 0:
+                client_sock.close()
+                return
             addr = client_sock.getpeername()
             logging.info(f'action: receive_message | result: success | ip: {addr[0]} | msg: {msg}')
             # logging.info(f'Message length: {len(to_bytes(msg))}')
-            # TODO: Modify the send to avoid short-writes
             bet = parse_message(msg)
             store_bets([bet])
             logging.info(f'action: apuesta_almacenada | result: success | dni: {bet.document} | numero: {bet.number}')

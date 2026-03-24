@@ -112,11 +112,11 @@ func main() {
 		LoopPeriod:    v.GetDuration("loop.period"),
 	}
 	clientInfo := common.ClientInfo{
-		Nombre:     os.Getenv("NOMBRE"),
-		Apellido:   os.Getenv("APELLIDO"),
-		Documento:  os.Getenv("DOCUMENTO"),
-		Nacimiento: os.Getenv("NACIMIENTO"),
-		Numero:     os.Getenv("NUMERO"),
+		Nombre:     "Fede",
+		Apellido:   "Valsagna",
+		Documento:  "12345678",
+		Nacimiento: "11-17-2000",
+		Numero:     "1234",
 	}
 
 	client := common.NewClient(clientConfig, clientInfo)
