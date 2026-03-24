@@ -111,7 +111,15 @@ func main() {
 		LoopAmount:    v.GetInt("loop.amount"),
 		LoopPeriod:    v.GetDuration("loop.period"),
 	}
-	client := common.NewClient(clientConfig)
+	clientInfo := common.ClientInfo{
+		Nombre:     os.Getenv("NOMBRE"),
+		Apellido:   os.Getenv("APELLIDO"),
+		Documento:  os.Getenv("DOCUMENTO"),
+		Nacimiento: os.Getenv("NACIMIENTO"),
+		Numero:     os.Getenv("NUMERO"),
+	}
+
+	client := common.NewClient(clientConfig, clientInfo)
 	go SignalHandling(client)
 	client.StartClientLoop()
 }
