@@ -1,5 +1,7 @@
 from common.parser import BET_SEPARATOR
 
+NOTIFY_MESSAGGE = "N"
+ASKING_MESSAGE = "A"
 
 def winners_message(winners):
     msg = "W" + BET_SEPARATOR
