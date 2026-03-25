@@ -63,8 +63,9 @@ class Server:
                 if self.remaining_agencies == 0:
                     # Launch winners
                     logging.info("action: sorteo | result: success")
-                    self.choose_winners()
-                    self.winner_selected = True
+                    with self.bet_lock:
+                        self.choose_winners()
+                        self.winner_selected = True
             elif msg[0] == "A":
                 agency = msg[1]
                 print("A msg")
@@ -85,7 +86,8 @@ class Server:
 
                     # Message logic
                     bets = parse_bets_message(msg)
-                    store_bets(bets)
+                    with self.bet_lock:
+                        store_bets(bets)
                     logging.info(f'action: apuesta_recibida | result: success | cantidad: {len(bets)}')
                     msg = "Apuesta recibida"
                     msg = fill_padding(msg)
@@ -127,12 +129,6 @@ class Server:
         for bet in load_bets():
             if has_won(bet):
                 self.agencies[str(bet.agency)].winners.add(bet)
-        
-        for _, agency in self.agencies.items():
-            print("WINNERS FROM AGENCY")
-            # print(agency.winners)
-            for winner in agency.winners:
-                print(winner.document)
 
     def task_assignment(self, queue: Queue, working, working_lock):
         while True:
@@ -165,6 +161,7 @@ class Server:
         self.queue_list = queue_list
         self.working = working
         self.working_lock = working_lock
+        self.bet_lock = Lock()
         
         for process in self.process_list:
             process.start()
