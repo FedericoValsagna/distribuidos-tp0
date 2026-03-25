@@ -84,6 +84,10 @@ func (c *Client) StartClientLoop() {
 		if err == io.EOF {
 			keepLooping = false
 		}
+		if len(bets) == 0 {
+			c.conn.Close()
+			break
+		}
 		msg := BatchBetMessage(bets, c.config.ID)
 		c.SendMessage(msg)
 		msg, err = c.ReceiveMessage()
