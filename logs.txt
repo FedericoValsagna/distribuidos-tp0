@@ -1,0 +1,334 @@
+docker compose -f docker-compose-dev.yaml logs -f
+client1  | 2026-03-25 09:13:59 INFO     action: config | result: success | client_id: 1 | server_address: server:12345 | loop_amount: 500 | loop_period: 150ms | log_level: INFO%!(EXTRA int=10)
+client1  | Mensaje enviado: 1!Name_Surname_00000000_2000-01-01_0_!Name_Surname_00000001_2000-01-01_7574_!Name_Surname_00000002_2000-01-01_2_!Name_Surname_00000003_2000-01-01_3_!Name_Surname_00000004_2000-01-01_4_!Name_Surname_00000005_2000-01-01_5_!Name_Surname_00000006_2000-01-01_6_!Name_Surname_00000007_2000-01-01_7_!Name_Surname_00000008_2000-01-01_8_!Name_Surname_00000009_2000-01-01_9_
+client1  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 1 | msg: Apuesta recibida
+client1  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client1  | Mensaje enviado: 1!Name_Surname_00000010_2000-01-01_10_!Name_Surname_00000011_2000-01-01_11_!Name_Surname_00000012_2000-01-01_12_!Name_Surname_00000013_2000-01-01_13_!Name_Surname_00000014_2000-01-01_14_!Name_Surname_00000015_2000-01-01_15_!Name_Surname_00000016_2000-01-01_16_!Name_Surname_00000017_2000-01-01_17_!Name_Surname_00000018_2000-01-01_18_!Name_Surname_00000019_2000-01-01_19_
+client1  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 1 | msg: Apuesta recibida
+client1  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client1  | Mensaje enviado: 1!Name_Surname_00000020_2000-01-01_20_!Name_Surname_00000021_2000-01-01_21_!Name_Surname_00000022_2000-01-01_22_!Name_Surname_00000023_2000-01-01_23_!Name_Surname_00000024_2000-01-01_24_!Name_Surname_00000025_2000-01-01_25_!Name_Surname_00000026_2000-01-01_26_!Name_Surname_00000027_2000-01-01_27_!Name_Surname_00000028_2000-01-01_28_!Name_Surname_00000029_2000-01-01_29_
+client1  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 1 | msg: Apuesta recibida
+client1  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client1  | Mensaje enviado: 1!Name_Surname_00000030_2000-01-01_30_!Name_Surname_00000031_2000-01-01_31_!Name_Surname_00000032_2000-01-01_32_!Name_Surname_00000033_2000-01-01_33_!Name_Surname_00000034_2000-01-01_34_!Name_Surname_00000035_2000-01-01_35_!Name_Surname_00000036_2000-01-01_36_!Name_Surname_00000037_2000-01-01_37_!Name_Surname_00000038_2000-01-01_38_!Name_Surname_00000039_2000-01-01_39_
+client1  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 1 | msg: Apuesta recibida
+client1  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client1  | Mensaje enviado: 1!Name_Surname_00000040_2000-01-01_40_!Name_Surname_00000041_2000-01-01_41_!Name_Surname_00000042_2000-01-01_42_!Name_Surname_00000043_2000-01-01_43_!Name_Surname_00000044_2000-01-01_44_!Name_Surname_00000045_2000-01-01_45_!Name_Surname_00000046_2000-01-01_46_!Name_Surname_00000047_2000-01-01_47_!Name_Surname_00000048_2000-01-01_48_!Name_Surname_00000049_2000-01-01_49_
+client1  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 1 | msg: Apuesta recibida
+client1  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client1  | Mensaje enviado: 1!Name_Surname_00000050_2000-01-01_50_!Name_Surname_00000051_2000-01-01_51_!Name_Surname_00000052_2000-01-01_52_!Name_Surname_00000053_2000-01-01_53_!Name_Surname_00000054_2000-01-01_54_!Name_Surname_00000055_2000-01-01_55_!Name_Surname_00000056_2000-01-01_56_!Name_Surname_00000057_2000-01-01_57_!Name_Surname_00000058_2000-01-01_58_!Name_Surname_00000059_2000-01-01_59_
+client1  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 1 | msg: Apuesta recibida
+client1  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client1  | Mensaje enviado: N!1
+client1  | Mensaje enviado: A!1
+client1  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 1 | msg: S
+client1  | Mensaje enviado: A!1
+client1  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 1 | msg: S
+client1  | Mensaje enviado: A!1
+client1  | 2026-03-25 09:14:00 INFO     action: receive_message | result: success | client_id: 1 | msg: W
+client1  | Ganadores: W
+client1  | 2026-03-25 09:14:01 INFO     action: consulta_ganadores | result: success | cant_ganadores: 0
+client1  | 2026-03-25 09:14:01 INFO     action: loop_finished | result: success | client_id: 1
+client3  | 2026-03-25 09:13:59 INFO     action: config | result: success | client_id: 3 | server_address: server:12345 | loop_amount: 500 | loop_period: 150ms | log_level: INFO%!(EXTRA int=10)
+client3  | Mensaje enviado: 3!Name_Surname_00000000_2000-01-01_0_!Name_Surname_00000001_2000-01-01_7574_!Name_Surname_00000002_2000-01-01_7574_!Name_Surname_00000003_2000-01-01_7574_!Name_Surname_00000004_2000-01-01_4_!Name_Surname_00000005_2000-01-01_5_!Name_Surname_00000006_2000-01-01_6_!Name_Surname_00000007_2000-01-01_7_!Name_Surname_00000008_2000-01-01_8_!Name_Surname_00000009_2000-01-01_9_
+client3  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 3 | msg: Apuesta recibida
+client3  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client3  | Mensaje enviado: 3!Name_Surname_00000010_2000-01-01_10_!Name_Surname_00000011_2000-01-01_11_!Name_Surname_00000012_2000-01-01_12_!Name_Surname_00000013_2000-01-01_13_!Name_Surname_00000014_2000-01-01_14_!Name_Surname_00000015_2000-01-01_15_!Name_Surname_00000016_2000-01-01_16_!Name_Surname_00000017_2000-01-01_17_!Name_Surname_00000018_2000-01-01_18_!Name_Surname_00000019_2000-01-01_19_
+client3  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 3 | msg: Apuesta recibida
+client3  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client3  | Mensaje enviado: 3!Name_Surname_00000020_2000-01-01_20_!Name_Surname_00000021_2000-01-01_21_!Name_Surname_00000022_2000-01-01_22_!Name_Surname_00000023_2000-01-01_23_!Name_Surname_00000024_2000-01-01_24_!Name_Surname_00000025_2000-01-01_25_!Name_Surname_00000026_2000-01-01_26_!Name_Surname_00000027_2000-01-01_27_!Name_Surname_00000028_2000-01-01_28_!Name_Surname_00000029_2000-01-01_29_
+client3  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 3 | msg: Apuesta recibida
+client3  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client3  | Mensaje enviado: 3!Name_Surname_00000030_2000-01-01_30_!Name_Surname_00000031_2000-01-01_31_!Name_Surname_00000032_2000-01-01_32_!Name_Surname_00000033_2000-01-01_33_!Name_Surname_00000034_2000-01-01_34_!Name_Surname_00000035_2000-01-01_35_!Name_Surname_00000036_2000-01-01_36_!Name_Surname_00000037_2000-01-01_37_!Name_Surname_00000038_2000-01-01_38_!Name_Surname_00000039_2000-01-01_39_
+client3  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 3 | msg: Apuesta recibida
+client3  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client3  | Mensaje enviado: 3!Name_Surname_00000040_2000-01-01_40_!Name_Surname_00000041_2000-01-01_41_!Name_Surname_00000042_2000-01-01_42_!Name_Surname_00000043_2000-01-01_43_!Name_Surname_00000044_2000-01-01_44_!Name_Surname_00000045_2000-01-01_45_!Name_Surname_00000046_2000-01-01_46_!Name_Surname_00000047_2000-01-01_47_!Name_Surname_00000048_2000-01-01_48_!Name_Surname_00000049_2000-01-01_49_
+client3  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 3 | msg: Apuesta recibida
+client3  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client3  | Mensaje enviado: 3!Name_Surname_00000050_2000-01-01_50_!Name_Surname_00000051_2000-01-01_51_!Name_Surname_00000052_2000-01-01_52_!Name_Surname_00000053_2000-01-01_53_!Name_Surname_00000054_2000-01-01_54_!Name_Surname_00000055_2000-01-01_55_!Name_Surname_00000056_2000-01-01_56_!Name_Surname_00000057_2000-01-01_57_!Name_Surname_00000058_2000-01-01_58_!Name_Surname_00000059_2000-01-01_59_
+client3  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 3 | msg: Apuesta recibida
+client3  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client3  | Mensaje enviado: N!3
+client3  | Mensaje enviado: A!3
+client3  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 3 | msg: S
+client3  | Mensaje enviado: A!3
+client3  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 3 | msg: S
+client3  | Mensaje enviado: A!3
+client3  | 2026-03-25 09:14:00 INFO     action: receive_message | result: success | client_id: 3 | msg: W
+client3  | Ganadores: W
+client3  | 2026-03-25 09:14:01 INFO     action: consulta_ganadores | result: success | cant_ganadores: 0
+client3  | 2026-03-25 09:14:01 INFO     action: loop_finished | result: success | client_id: 3
+client5  | 2026-03-25 09:13:59 INFO     action: config | result: success | client_id: 5 | server_address: server:12345 | loop_amount: 500 | loop_period: 150ms | log_level: INFO%!(EXTRA int=10)
+client5  | Mensaje enviado: 5!Name_Surname_00000000_2000-01-01_0_!Name_Surname_00000001_2000-01-01_7574_!Name_Surname_00000002_2000-01-01_7574_!Name_Surname_00000003_2000-01-01_7574_!Name_Surname_00000004_2000-01-01_7574_!Name_Surname_00000005_2000-01-01_7574_!Name_Surname_00000006_2000-01-01_6_!Name_Surname_00000007_2000-01-01_7_!Name_Surname_00000008_2000-01-01_8_!Name_Surname_00000009_2000-01-01_9_
+client5  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 5 | msg: Apuesta recibida
+client5  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client5  | Mensaje enviado: 5!Name_Surname_00000010_2000-01-01_10_!Name_Surname_00000011_2000-01-01_11_!Name_Surname_00000012_2000-01-01_12_!Name_Surname_00000013_2000-01-01_13_!Name_Surname_00000014_2000-01-01_14_!Name_Surname_00000015_2000-01-01_15_!Name_Surname_00000016_2000-01-01_16_!Name_Surname_00000017_2000-01-01_17_!Name_Surname_00000018_2000-01-01_18_!Name_Surname_00000019_2000-01-01_19_
+client5  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 5 | msg: Apuesta recibida
+client5  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client5  | Mensaje enviado: 5!Name_Surname_00000020_2000-01-01_20_!Name_Surname_00000021_2000-01-01_21_!Name_Surname_00000022_2000-01-01_22_!Name_Surname_00000023_2000-01-01_23_!Name_Surname_00000024_2000-01-01_24_!Name_Surname_00000025_2000-01-01_25_!Name_Surname_00000026_2000-01-01_26_!Name_Surname_00000027_2000-01-01_27_!Name_Surname_00000028_2000-01-01_28_!Name_Surname_00000029_2000-01-01_29_
+client5  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 5 | msg: Apuesta recibida
+client5  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client5  | Mensaje enviado: 5!Name_Surname_00000030_2000-01-01_30_!Name_Surname_00000031_2000-01-01_31_!Name_Surname_00000032_2000-01-01_32_!Name_Surname_00000033_2000-01-01_33_!Name_Surname_00000034_2000-01-01_34_!Name_Surname_00000035_2000-01-01_35_!Name_Surname_00000036_2000-01-01_36_!Name_Surname_00000037_2000-01-01_37_!Name_Surname_00000038_2000-01-01_38_!Name_Surname_00000039_2000-01-01_39_
+client5  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 5 | msg: Apuesta recibida
+client5  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client5  | Mensaje enviado: 5!Name_Surname_00000040_2000-01-01_40_!Name_Surname_00000041_2000-01-01_41_!Name_Surname_00000042_2000-01-01_42_!Name_Surname_00000043_2000-01-01_43_!Name_Surname_00000044_2000-01-01_44_!Name_Surname_00000045_2000-01-01_45_!Name_Surname_00000046_2000-01-01_46_!Name_Surname_00000047_2000-01-01_47_!Name_Surname_00000048_2000-01-01_48_!Name_Surname_00000049_2000-01-01_49_
+client5  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 5 | msg: Apuesta recibida
+client5  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client5  | Mensaje enviado: 5!Name_Surname_00000050_2000-01-01_50_!Name_Surname_00000051_2000-01-01_51_!Name_Surname_00000052_2000-01-01_52_!Name_Surname_00000053_2000-01-01_53_!Name_Surname_00000054_2000-01-01_54_!Name_Surname_00000055_2000-01-01_55_!Name_Surname_00000056_2000-01-01_56_!Name_Surname_00000057_2000-01-01_57_!Name_Surname_00000058_2000-01-01_58_!Name_Surname_00000059_2000-01-01_59_
+client5  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 5 | msg: Apuesta recibida
+client5  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client5  | Mensaje enviado: N!5
+client5  | Mensaje enviado: A!5
+client5  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 5 | msg: S
+client5  | Mensaje enviado: A!5
+client5  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 5 | msg: S
+client5  | Mensaje enviado: A!5
+client5  | 2026-03-25 09:14:00 INFO     action: receive_message | result: success | client_id: 5 | msg: W
+client5  | Ganadores: W
+client5  | 2026-03-25 09:14:01 INFO     action: consulta_ganadores | result: success | cant_ganadores: 0
+client5  | 2026-03-25 09:14:01 INFO     action: loop_finished | result: success | client_id: 5
+client2  | 2026-03-25 09:13:59 INFO     action: config | result: success | client_id: 2 | server_address: server:12345 | loop_amount: 500 | loop_period: 150ms | log_level: INFO%!(EXTRA int=10)
+client2  | Mensaje enviado: 2!Name_Surname_00000000_2000-01-01_0_!Name_Surname_00000001_2000-01-01_7574_!Name_Surname_00000002_2000-01-01_7574_!Name_Surname_00000003_2000-01-01_3_!Name_Surname_00000004_2000-01-01_4_!Name_Surname_00000005_2000-01-01_5_!Name_Surname_00000006_2000-01-01_6_!Name_Surname_00000007_2000-01-01_7_!Name_Surname_00000008_2000-01-01_8_!Name_Surname_00000009_2000-01-01_9_
+client2  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 2 | msg: Apuesta recibida
+client2  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client2  | Mensaje enviado: 2!Name_Surname_00000010_2000-01-01_10_!Name_Surname_00000011_2000-01-01_11_!Name_Surname_00000012_2000-01-01_12_!Name_Surname_00000013_2000-01-01_13_!Name_Surname_00000014_2000-01-01_14_!Name_Surname_00000015_2000-01-01_15_!Name_Surname_00000016_2000-01-01_16_!Name_Surname_00000017_2000-01-01_17_!Name_Surname_00000018_2000-01-01_18_!Name_Surname_00000019_2000-01-01_19_
+client2  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 2 | msg: Apuesta recibida
+client2  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client2  | Mensaje enviado: 2!Name_Surname_00000020_2000-01-01_20_!Name_Surname_00000021_2000-01-01_21_!Name_Surname_00000022_2000-01-01_22_!Name_Surname_00000023_2000-01-01_23_!Name_Surname_00000024_2000-01-01_24_!Name_Surname_00000025_2000-01-01_25_!Name_Surname_00000026_2000-01-01_26_!Name_Surname_00000027_2000-01-01_27_!Name_Surname_00000028_2000-01-01_28_!Name_Surname_00000029_2000-01-01_29_
+client2  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 2 | msg: Apuesta recibida
+client2  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client2  | Mensaje enviado: 2!Name_Surname_00000030_2000-01-01_30_!Name_Surname_00000031_2000-01-01_31_!Name_Surname_00000032_2000-01-01_32_!Name_Surname_00000033_2000-01-01_33_!Name_Surname_00000034_2000-01-01_34_!Name_Surname_00000035_2000-01-01_35_!Name_Surname_00000036_2000-01-01_36_!Name_Surname_00000037_2000-01-01_37_!Name_Surname_00000038_2000-01-01_38_!Name_Surname_00000039_2000-01-01_39_
+client2  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 2 | msg: Apuesta recibida
+client2  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client2  | Mensaje enviado: 2!Name_Surname_00000040_2000-01-01_40_!Name_Surname_00000041_2000-01-01_41_!Name_Surname_00000042_2000-01-01_42_!Name_Surname_00000043_2000-01-01_43_!Name_Surname_00000044_2000-01-01_44_!Name_Surname_00000045_2000-01-01_45_!Name_Surname_00000046_2000-01-01_46_!Name_Surname_00000047_2000-01-01_47_!Name_Surname_00000048_2000-01-01_48_!Name_Surname_00000049_2000-01-01_49_
+client2  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 2 | msg: Apuesta recibida
+client2  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client2  | Mensaje enviado: 2!Name_Surname_00000050_2000-01-01_50_!Name_Surname_00000051_2000-01-01_51_!Name_Surname_00000052_2000-01-01_52_!Name_Surname_00000053_2000-01-01_53_!Name_Surname_00000054_2000-01-01_54_!Name_Surname_00000055_2000-01-01_55_!Name_Surname_00000056_2000-01-01_56_!Name_Surname_00000057_2000-01-01_57_!Name_Surname_00000058_2000-01-01_58_!Name_Surname_00000059_2000-01-01_59_
+client2  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 2 | msg: Apuesta recibida
+client2  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client2  | Mensaje enviado: N!2
+client2  | Mensaje enviado: A!2
+client2  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 2 | msg: S
+client2  | Mensaje enviado: A!2
+client2  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 2 | msg: S
+client2  | Mensaje enviado: A!2
+client2  | 2026-03-25 09:14:00 INFO     action: receive_message | result: success | client_id: 2 | msg: W
+client2  | Ganadores: W
+client2  | 2026-03-25 09:14:01 INFO     action: consulta_ganadores | result: success | cant_ganadores: 0
+client2  | 2026-03-25 09:14:01 INFO     action: loop_finished | result: success | client_id: 2
+client4  | 2026-03-25 09:13:59 INFO     action: config | result: success | client_id: 4 | server_address: server:12345 | loop_amount: 500 | loop_period: 150ms | log_level: INFO%!(EXTRA int=10)
+client4  | Mensaje enviado: 4!Name_Surname_00000000_2000-01-01_0_!Name_Surname_00000001_2000-01-01_7574_!Name_Surname_00000002_2000-01-01_7574_!Name_Surname_00000003_2000-01-01_7574_!Name_Surname_00000004_2000-01-01_7574_!Name_Surname_00000005_2000-01-01_5_!Name_Surname_00000006_2000-01-01_6_!Name_Surname_00000007_2000-01-01_7_!Name_Surname_00000008_2000-01-01_8_!Name_Surname_00000009_2000-01-01_9_
+client4  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 4 | msg: Apuesta recibida
+client4  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client4  | Mensaje enviado: 4!Name_Surname_00000010_2000-01-01_10_!Name_Surname_00000011_2000-01-01_11_!Name_Surname_00000012_2000-01-01_12_!Name_Surname_00000013_2000-01-01_13_!Name_Surname_00000014_2000-01-01_14_!Name_Surname_00000015_2000-01-01_15_!Name_Surname_00000016_2000-01-01_16_!Name_Surname_00000017_2000-01-01_17_!Name_Surname_00000018_2000-01-01_18_!Name_Surname_00000019_2000-01-01_19_
+client4  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 4 | msg: Apuesta recibida
+client4  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client4  | Mensaje enviado: 4!Name_Surname_00000020_2000-01-01_20_!Name_Surname_00000021_2000-01-01_21_!Name_Surname_00000022_2000-01-01_22_!Name_Surname_00000023_2000-01-01_23_!Name_Surname_00000024_2000-01-01_24_!Name_Surname_00000025_2000-01-01_25_!Name_Surname_00000026_2000-01-01_26_!Name_Surname_00000027_2000-01-01_27_!Name_Surname_00000028_2000-01-01_28_!Name_Surname_00000029_2000-01-01_29_
+client4  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 4 | msg: Apuesta recibida
+client4  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client4  | Mensaje enviado: 4!Name_Surname_00000030_2000-01-01_30_!Name_Surname_00000031_2000-01-01_31_!Name_Surname_00000032_2000-01-01_32_!Name_Surname_00000033_2000-01-01_33_!Name_Surname_00000034_2000-01-01_34_!Name_Surname_00000035_2000-01-01_35_!Name_Surname_00000036_2000-01-01_36_!Name_Surname_00000037_2000-01-01_37_!Name_Surname_00000038_2000-01-01_38_!Name_Surname_00000039_2000-01-01_39_
+client4  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 4 | msg: Apuesta recibida
+client4  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client4  | Mensaje enviado: 4!Name_Surname_00000040_2000-01-01_40_!Name_Surname_00000041_2000-01-01_41_!Name_Surname_00000042_2000-01-01_42_!Name_Surname_00000043_2000-01-01_43_!Name_Surname_00000044_2000-01-01_44_!Name_Surname_00000045_2000-01-01_45_!Name_Surname_00000046_2000-01-01_46_!Name_Surname_00000047_2000-01-01_47_!Name_Surname_00000048_2000-01-01_48_!Name_Surname_00000049_2000-01-01_49_
+client4  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 4 | msg: Apuesta recibida
+client4  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client4  | Mensaje enviado: 4!Name_Surname_00000050_2000-01-01_50_!Name_Surname_00000051_2000-01-01_51_!Name_Surname_00000052_2000-01-01_52_!Name_Surname_00000053_2000-01-01_53_!Name_Surname_00000054_2000-01-01_54_!Name_Surname_00000055_2000-01-01_55_!Name_Surname_00000056_2000-01-01_56_!Name_Surname_00000057_2000-01-01_57_!Name_Surname_00000058_2000-01-01_58_!Name_Surname_00000059_2000-01-01_59_
+client4  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 4 | msg: Apuesta recibida
+client4  | 2026-03-25 09:13:59 INFO     action: apuesta_enviada | result: success | dni: 12345678 | numero: 1234
+client4  | Mensaje enviado: N!4
+client4  | Mensaje enviado: A!4
+client4  | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | client_id: 4 | msg: W
+client4  | Ganadores: W
+client4  | 2026-03-25 09:13:59 INFO     action: consulta_ganadores | result: success | cant_ganadores: 0
+client4  | 2026-03-25 09:13:59 INFO     action: loop_finished | result: success | client_id: 4
+server   | 2026-03-25 09:13:59 DEBUG    action: config | result: success | port: 12345 | listen_backlog: 5 | logging_level: DEBUG
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.3
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.4
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.3 | msg: 3!Name_Surname_00000000_2000-01-01_0_!Name_Surname_00000001_2000-01-01_7574_!Name_Surname_00000002_2000-01-01_7574_!Name_Surname_00000003_2000-01-01_7574_!Name_Surname_00000004_2000-01-01_4_!Name_Surname_00000005_2000-01-01_5_!Name_Surname_00000006_2000-01-01_6_!Name_Surname_00000007_2000-01-01_7_!Name_Surname_00000008_2000-01-01_8_!Name_Surname_00000009_2000-01-01_9_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.3
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.4 | msg: 2!Name_Surname_00000000_2000-01-01_0_!Name_Surname_00000001_2000-01-01_7574_!Name_Surname_00000002_2000-01-01_7574_!Name_Surname_00000003_2000-01-01_3_!Name_Surname_00000004_2000-01-01_4_!Name_Surname_00000005_2000-01-01_5_!Name_Surname_00000006_2000-01-01_6_!Name_Surname_00000007_2000-01-01_7_!Name_Surname_00000008_2000-01-01_8_!Name_Surname_00000009_2000-01-01_9_
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.4
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.3 | msg: 3!Name_Surname_00000010_2000-01-01_10_!Name_Surname_00000011_2000-01-01_11_!Name_Surname_00000012_2000-01-01_12_!Name_Surname_00000013_2000-01-01_13_!Name_Surname_00000014_2000-01-01_14_!Name_Surname_00000015_2000-01-01_15_!Name_Surname_00000016_2000-01-01_16_!Name_Surname_00000017_2000-01-01_17_!Name_Surname_00000018_2000-01-01_18_!Name_Surname_00000019_2000-01-01_19_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.4 | msg: 2!Name_Surname_00000010_2000-01-01_10_!Name_Surname_00000011_2000-01-01_11_!Name_Surname_00000012_2000-01-01_12_!Name_Surname_00000013_2000-01-01_13_!Name_Surname_00000014_2000-01-01_14_!Name_Surname_00000015_2000-01-01_15_!Name_Surname_00000016_2000-01-01_16_!Name_Surname_00000017_2000-01-01_17_!Name_Surname_00000018_2000-01-01_18_!Name_Surname_00000019_2000-01-01_19_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.3
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.4
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.3 | msg: 3!Name_Surname_00000020_2000-01-01_20_!Name_Surname_00000021_2000-01-01_21_!Name_Surname_00000022_2000-01-01_22_!Name_Surname_00000023_2000-01-01_23_!Name_Surname_00000024_2000-01-01_24_!Name_Surname_00000025_2000-01-01_25_!Name_Surname_00000026_2000-01-01_26_!Name_Surname_00000027_2000-01-01_27_!Name_Surname_00000028_2000-01-01_28_!Name_Surname_00000029_2000-01-01_29_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.4 | msg: 2!Name_Surname_00000020_2000-01-01_20_!Name_Surname_00000021_2000-01-01_21_!Name_Surname_00000022_2000-01-01_22_!Name_Surname_00000023_2000-01-01_23_!Name_Surname_00000024_2000-01-01_24_!Name_Surname_00000025_2000-01-01_25_!Name_Surname_00000026_2000-01-01_26_!Name_Surname_00000027_2000-01-01_27_!Name_Surname_00000028_2000-01-01_28_!Name_Surname_00000029_2000-01-01_29_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.3
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.4
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.3 | msg: 3!Name_Surname_00000030_2000-01-01_30_!Name_Surname_00000031_2000-01-01_31_!Name_Surname_00000032_2000-01-01_32_!Name_Surname_00000033_2000-01-01_33_!Name_Surname_00000034_2000-01-01_34_!Name_Surname_00000035_2000-01-01_35_!Name_Surname_00000036_2000-01-01_36_!Name_Surname_00000037_2000-01-01_37_!Name_Surname_00000038_2000-01-01_38_!Name_Surname_00000039_2000-01-01_39_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.4 | msg: 2!Name_Surname_00000030_2000-01-01_30_!Name_Surname_00000031_2000-01-01_31_!Name_Surname_00000032_2000-01-01_32_!Name_Surname_00000033_2000-01-01_33_!Name_Surname_00000034_2000-01-01_34_!Name_Surname_00000035_2000-01-01_35_!Name_Surname_00000036_2000-01-01_36_!Name_Surname_00000037_2000-01-01_37_!Name_Surname_00000038_2000-01-01_38_!Name_Surname_00000039_2000-01-01_39_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.3
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.4
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.3 | msg: 3!Name_Surname_00000040_2000-01-01_40_!Name_Surname_00000041_2000-01-01_41_!Name_Surname_00000042_2000-01-01_42_!Name_Surname_00000043_2000-01-01_43_!Name_Surname_00000044_2000-01-01_44_!Name_Surname_00000045_2000-01-01_45_!Name_Surname_00000046_2000-01-01_46_!Name_Surname_00000047_2000-01-01_47_!Name_Surname_00000048_2000-01-01_48_!Name_Surname_00000049_2000-01-01_49_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.4 | msg: 2!Name_Surname_00000040_2000-01-01_40_!Name_Surname_00000041_2000-01-01_41_!Name_Surname_00000042_2000-01-01_42_!Name_Surname_00000043_2000-01-01_43_!Name_Surname_00000044_2000-01-01_44_!Name_Surname_00000045_2000-01-01_45_!Name_Surname_00000046_2000-01-01_46_!Name_Surname_00000047_2000-01-01_47_!Name_Surname_00000048_2000-01-01_48_!Name_Surname_00000049_2000-01-01_49_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.3
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.4
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.3 | msg: 3!Name_Surname_00000050_2000-01-01_50_!Name_Surname_00000051_2000-01-01_51_!Name_Surname_00000052_2000-01-01_52_!Name_Surname_00000053_2000-01-01_53_!Name_Surname_00000054_2000-01-01_54_!Name_Surname_00000055_2000-01-01_55_!Name_Surname_00000056_2000-01-01_56_!Name_Surname_00000057_2000-01-01_57_!Name_Surname_00000058_2000-01-01_58_!Name_Surname_00000059_2000-01-01_59_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.4 | msg: 2!Name_Surname_00000050_2000-01-01_50_!Name_Surname_00000051_2000-01-01_51_!Name_Surname_00000052_2000-01-01_52_!Name_Surname_00000053_2000-01-01_53_!Name_Surname_00000054_2000-01-01_54_!Name_Surname_00000055_2000-01-01_55_!Name_Surname_00000056_2000-01-01_56_!Name_Surname_00000057_2000-01-01_57_!Name_Surname_00000058_2000-01-01_58_!Name_Surname_00000059_2000-01-01_59_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.3
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.4
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.3
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.4
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.3
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.4
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.3 | msg: N!3
+server   | Remaining agencies: 4
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.4 | msg: N!2
+server   | Remaining agencies: 3
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.3 | msg: A!3
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.4 | msg: A!2
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.3
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.4
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.3 | msg: A!3
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.4 | msg: A!2
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.5
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.5 | msg: 5!Name_Surname_00000000_2000-01-01_0_!Name_Surname_00000001_2000-01-01_7574_!Name_Surname_00000002_2000-01-01_7574_!Name_Surname_00000003_2000-01-01_7574_!Name_Surname_00000004_2000-01-01_7574_!Name_Surname_00000005_2000-01-01_7574_!Name_Surname_00000006_2000-01-01_6_!Name_Surname_00000007_2000-01-01_7_!Name_Surname_00000008_2000-01-01_8_!Name_Surname_00000009_2000-01-01_9_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.5
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.5 | msg: 5!Name_Surname_00000010_2000-01-01_10_!Name_Surname_00000011_2000-01-01_11_!Name_Surname_00000012_2000-01-01_12_!Name_Surname_00000013_2000-01-01_13_!Name_Surname_00000014_2000-01-01_14_!Name_Surname_00000015_2000-01-01_15_!Name_Surname_00000016_2000-01-01_16_!Name_Surname_00000017_2000-01-01_17_!Name_Surname_00000018_2000-01-01_18_!Name_Surname_00000019_2000-01-01_19_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.5
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.5 | msg: 5!Name_Surname_00000020_2000-01-01_20_!Name_Surname_00000021_2000-01-01_21_!Name_Surname_00000022_2000-01-01_22_!Name_Surname_00000023_2000-01-01_23_!Name_Surname_00000024_2000-01-01_24_!Name_Surname_00000025_2000-01-01_25_!Name_Surname_00000026_2000-01-01_26_!Name_Surname_00000027_2000-01-01_27_!Name_Surname_00000028_2000-01-01_28_!Name_Surname_00000029_2000-01-01_29_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.5
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.5 | msg: 5!Name_Surname_00000030_2000-01-01_30_!Name_Surname_00000031_2000-01-01_31_!Name_Surname_00000032_2000-01-01_32_!Name_Surname_00000033_2000-01-01_33_!Name_Surname_00000034_2000-01-01_34_!Name_Surname_00000035_2000-01-01_35_!Name_Surname_00000036_2000-01-01_36_!Name_Surname_00000037_2000-01-01_37_!Name_Surname_00000038_2000-01-01_38_!Name_Surname_00000039_2000-01-01_39_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.5
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.5 | msg: 5!Name_Surname_00000040_2000-01-01_40_!Name_Surname_00000041_2000-01-01_41_!Name_Surname_00000042_2000-01-01_42_!Name_Surname_00000043_2000-01-01_43_!Name_Surname_00000044_2000-01-01_44_!Name_Surname_00000045_2000-01-01_45_!Name_Surname_00000046_2000-01-01_46_!Name_Surname_00000047_2000-01-01_47_!Name_Surname_00000048_2000-01-01_48_!Name_Surname_00000049_2000-01-01_49_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.5
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.5 | msg: 5!Name_Surname_00000050_2000-01-01_50_!Name_Surname_00000051_2000-01-01_51_!Name_Surname_00000052_2000-01-01_52_!Name_Surname_00000053_2000-01-01_53_!Name_Surname_00000054_2000-01-01_54_!Name_Surname_00000055_2000-01-01_55_!Name_Surname_00000056_2000-01-01_56_!Name_Surname_00000057_2000-01-01_57_!Name_Surname_00000058_2000-01-01_58_!Name_Surname_00000059_2000-01-01_59_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.5
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.5
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.5
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | Remaining agencies: 2
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.5 | msg: N!5
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.5 | msg: A!5
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.5
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.5 | msg: A!5
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.6
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.6 | msg: 1!Name_Surname_00000000_2000-01-01_0_!Name_Surname_00000001_2000-01-01_7574_!Name_Surname_00000002_2000-01-01_2_!Name_Surname_00000003_2000-01-01_3_!Name_Surname_00000004_2000-01-01_4_!Name_Surname_00000005_2000-01-01_5_!Name_Surname_00000006_2000-01-01_6_!Name_Surname_00000007_2000-01-01_7_!Name_Surname_00000008_2000-01-01_8_!Name_Surname_00000009_2000-01-01_9_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.6
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.6 | msg: 1!Name_Surname_00000010_2000-01-01_10_!Name_Surname_00000011_2000-01-01_11_!Name_Surname_00000012_2000-01-01_12_!Name_Surname_00000013_2000-01-01_13_!Name_Surname_00000014_2000-01-01_14_!Name_Surname_00000015_2000-01-01_15_!Name_Surname_00000016_2000-01-01_16_!Name_Surname_00000017_2000-01-01_17_!Name_Surname_00000018_2000-01-01_18_!Name_Surname_00000019_2000-01-01_19_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.6
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.6 | msg: 1!Name_Surname_00000020_2000-01-01_20_!Name_Surname_00000021_2000-01-01_21_!Name_Surname_00000022_2000-01-01_22_!Name_Surname_00000023_2000-01-01_23_!Name_Surname_00000024_2000-01-01_24_!Name_Surname_00000025_2000-01-01_25_!Name_Surname_00000026_2000-01-01_26_!Name_Surname_00000027_2000-01-01_27_!Name_Surname_00000028_2000-01-01_28_!Name_Surname_00000029_2000-01-01_29_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.6
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.6 | msg: 1!Name_Surname_00000030_2000-01-01_30_!Name_Surname_00000031_2000-01-01_31_!Name_Surname_00000032_2000-01-01_32_!Name_Surname_00000033_2000-01-01_33_!Name_Surname_00000034_2000-01-01_34_!Name_Surname_00000035_2000-01-01_35_!Name_Surname_00000036_2000-01-01_36_!Name_Surname_00000037_2000-01-01_37_!Name_Surname_00000038_2000-01-01_38_!Name_Surname_00000039_2000-01-01_39_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.6
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.6 | msg: 1!Name_Surname_00000040_2000-01-01_40_!Name_Surname_00000041_2000-01-01_41_!Name_Surname_00000042_2000-01-01_42_!Name_Surname_00000043_2000-01-01_43_!Name_Surname_00000044_2000-01-01_44_!Name_Surname_00000045_2000-01-01_45_!Name_Surname_00000046_2000-01-01_46_!Name_Surname_00000047_2000-01-01_47_!Name_Surname_00000048_2000-01-01_48_!Name_Surname_00000049_2000-01-01_49_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.6
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.6 | msg: 1!Name_Surname_00000050_2000-01-01_50_!Name_Surname_00000051_2000-01-01_51_!Name_Surname_00000052_2000-01-01_52_!Name_Surname_00000053_2000-01-01_53_!Name_Surname_00000054_2000-01-01_54_!Name_Surname_00000055_2000-01-01_55_!Name_Surname_00000056_2000-01-01_56_!Name_Surname_00000057_2000-01-01_57_!Name_Surname_00000058_2000-01-01_58_!Name_Surname_00000059_2000-01-01_59_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.6
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.6
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.6
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.6 | msg: N!1
+server   | Remaining agencies: 1
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.6 | msg: A!1
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.6
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.6 | msg: A!1
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.7
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.7 | msg: 4!Name_Surname_00000000_2000-01-01_0_!Name_Surname_00000001_2000-01-01_7574_!Name_Surname_00000002_2000-01-01_7574_!Name_Surname_00000003_2000-01-01_7574_!Name_Surname_00000004_2000-01-01_7574_!Name_Surname_00000005_2000-01-01_5_!Name_Surname_00000006_2000-01-01_6_!Name_Surname_00000007_2000-01-01_7_!Name_Surname_00000008_2000-01-01_8_!Name_Surname_00000009_2000-01-01_9_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.7
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.7 | msg: 4!Name_Surname_00000010_2000-01-01_10_!Name_Surname_00000011_2000-01-01_11_!Name_Surname_00000012_2000-01-01_12_!Name_Surname_00000013_2000-01-01_13_!Name_Surname_00000014_2000-01-01_14_!Name_Surname_00000015_2000-01-01_15_!Name_Surname_00000016_2000-01-01_16_!Name_Surname_00000017_2000-01-01_17_!Name_Surname_00000018_2000-01-01_18_!Name_Surname_00000019_2000-01-01_19_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.7
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.7 | msg: 4!Name_Surname_00000020_2000-01-01_20_!Name_Surname_00000021_2000-01-01_21_!Name_Surname_00000022_2000-01-01_22_!Name_Surname_00000023_2000-01-01_23_!Name_Surname_00000024_2000-01-01_24_!Name_Surname_00000025_2000-01-01_25_!Name_Surname_00000026_2000-01-01_26_!Name_Surname_00000027_2000-01-01_27_!Name_Surname_00000028_2000-01-01_28_!Name_Surname_00000029_2000-01-01_29_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.7
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.7 | msg: 4!Name_Surname_00000030_2000-01-01_30_!Name_Surname_00000031_2000-01-01_31_!Name_Surname_00000032_2000-01-01_32_!Name_Surname_00000033_2000-01-01_33_!Name_Surname_00000034_2000-01-01_34_!Name_Surname_00000035_2000-01-01_35_!Name_Surname_00000036_2000-01-01_36_!Name_Surname_00000037_2000-01-01_37_!Name_Surname_00000038_2000-01-01_38_!Name_Surname_00000039_2000-01-01_39_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.7
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.7 | msg: 4!Name_Surname_00000040_2000-01-01_40_!Name_Surname_00000041_2000-01-01_41_!Name_Surname_00000042_2000-01-01_42_!Name_Surname_00000043_2000-01-01_43_!Name_Surname_00000044_2000-01-01_44_!Name_Surname_00000045_2000-01-01_45_!Name_Surname_00000046_2000-01-01_46_!Name_Surname_00000047_2000-01-01_47_!Name_Surname_00000048_2000-01-01_48_!Name_Surname_00000049_2000-01-01_49_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.7
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.7 | msg: 4!Name_Surname_00000050_2000-01-01_50_!Name_Surname_00000051_2000-01-01_51_!Name_Surname_00000052_2000-01-01_52_!Name_Surname_00000053_2000-01-01_53_!Name_Surname_00000054_2000-01-01_54_!Name_Surname_00000055_2000-01-01_55_!Name_Surname_00000056_2000-01-01_56_!Name_Surname_00000057_2000-01-01_57_!Name_Surname_00000058_2000-01-01_58_!Name_Surname_00000059_2000-01-01_59_
+server   | 2026-03-25 09:13:59 INFO     action: apuesta_recibida | result: success | cantidad: 10
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.7
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.7
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: success | ip: 172.25.125.7
+server   | 2026-03-25 09:13:59 INFO     action: accept_connections | result: in_progress
+server   | Remaining agencies: 0
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.7 | msg: N!4
+server   | 2026-03-25 09:13:59 INFO     action: receive_message | result: success | ip: 172.25.125.7 | msg: A!4
+server   | 2026-03-25 09:14:00 INFO     action: accept_connections | result: success | ip: 172.25.125.3
+server   | 2026-03-25 09:14:00 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:14:00 INFO     action: accept_connections | result: success | ip: 172.25.125.4
+server   | 2026-03-25 09:14:00 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:14:00 INFO     action: receive_message | result: success | ip: 172.25.125.3 | msg: A!3
+server   | 2026-03-25 09:14:00 INFO     action: receive_message | result: success | ip: 172.25.125.4 | msg: A!2
+server   | 2026-03-25 09:14:00 INFO     action: accept_connections | result: success | ip: 172.25.125.5
+server   | 2026-03-25 09:14:00 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:14:00 INFO     action: receive_message | result: success | ip: 172.25.125.5 | msg: A!5
+server   | 2026-03-25 09:14:00 INFO     action: accept_connections | result: success | ip: 172.25.125.6
+server   | 2026-03-25 09:14:00 INFO     action: accept_connections | result: in_progress
+server   | 2026-03-25 09:14:00 INFO     action: receive_message | result: success | ip: 172.25.125.6 | msg: A!1
+server   | 2026-03-25 09:14:51 INFO     action: closing_server_socket | result: success

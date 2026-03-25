@@ -1,4 +1,5 @@
 from multiprocessing import Lock, Process, Queue, Value
+import os
 import socket
 import logging
 from common.utils import Bet
@@ -6,10 +7,8 @@ from common.utils import store_bets
 from common.utils import load_bets
 from common.utils import has_won
 from common.agency import Agency
-PACKET_SIZE = 8192
-PADDING = '$'
-SEPARATOR = '_'
-BET_SEPARATOR = "!"
+from common.messages import apuesta_recivida_message, hold_message, winners_message
+from common.parser import PACKET_SIZE, fill_padding, parse_bets_message, parse_message, remove_padding, send
 class Server:
     def __init__(self, port, listen_backlog):
         # Initialize server socket
@@ -17,9 +16,7 @@ class Server:
         self._server_socket.bind(('', port))
         self._server_socket.listen(listen_backlog)
         self.running = True
-        self.agencies = {}
-        self.remaining_agencies = 0
-        self.winner_selected = False
+        self.total_agencies = int(os.getenv("AGENCY_AMOUNT"))
         self.create_processes()
 
     def run(self):
@@ -57,42 +54,33 @@ class Server:
             msg = parse_message(msg)
             if msg[0] == "N":
                 agency = msg[1]
-                self.agencies[agency].finished = True
-                self.remaining_agencies -= 1
-                print(f"Remaining agencies: {self.remaining_agencies}")
-                if self.remaining_agencies == 0:
-                    # Launch winners
-                    logging.info("action: sorteo | result: success")
-                    with self.bet_lock:
-                        self.choose_winners()
-                        self.winner_selected = True
+                with self.remaining_agencies_lock:
+                    self.remaining_agencies.value -= 1
+                    if self.remaining_agencies.value == 0:
+                        # Launch winners
+                        logging.info("action: sorteo | result: success")
+                        # with self.bet_lock:
+                        #     self.choose_winners()
+                        #     self.winner_selected = True
             elif msg[0] == "A":
                 agency = msg[1]
-                print("A msg")
-                if self.winner_selected:
-                    # Launch winners
-                    send_winners(client_sock, self.agencies[agency])
-                else:
-                    msg = "S"
-                    msg = fill_padding(msg)
-                    client_sock.send(msg.encode('utf-8'))
-                    client_sock.close()
+                with self.remaining_agencies_lock:
+                    if self.remaining_agencies.value == 0:
+                        # Launch winners
+                        winners = select_winners(agency, self.bet_lock)
+                        print(f"WINNERS for agency {agency}: {winners}")
+                        send(client_sock, winners_message(winners))
+                    else:
+                        send(client_sock, hold_message())
+                        client_sock.close()
             elif msg[0] in {"1", "2", "3", "4", "5"}:
-                # Check if its in dictionary
-                    if msg[0] not in self.agencies:
-                        self.agencies[msg[0]] = Agency(addr)
-                        self.remaining_agencies += 1
-                        print(f"Remaining agencies: {self.remaining_agencies}")
-
-                    # Message logic
-                    bets = parse_bets_message(msg)
-                    with self.bet_lock:
-                        store_bets(bets)
-                    logging.info(f'action: apuesta_recibida | result: success | cantidad: {len(bets)}')
-                    msg = "Apuesta recibida"
-                    msg = fill_padding(msg)
-                    client_sock.send(msg.encode('utf-8'))
-                    client_sock.close()
+                # Message logic
+                bets = parse_bets_message(msg)
+                with self.bet_lock:
+                    store_bets(bets)
+                logging.info(f'action: apuesta_recibida | result: success | cantidad: {len(bets)}')
+                send(client_sock, apuesta_recivida_message())
+                client_sock.close()
             else:
                 # Unknown msg
                 print("Unknown msg")
@@ -124,11 +112,6 @@ class Server:
         for process in self.process_list:
             process.join()
         return
-    
-    def choose_winners(self):
-        for bet in load_bets():
-            if has_won(bet):
-                self.agencies[str(bet.agency)].winners.add(bet)
 
     def task_assignment(self, queue: Queue, working, working_lock):
         while True:
@@ -161,52 +144,26 @@ class Server:
         self.queue_list = queue_list
         self.working = working
         self.working_lock = working_lock
+
+        # Shared information
         self.bet_lock = Lock()
-        
+        self.remaining_agencies = Value('i', self.total_agencies)
+        self.remaining_agencies_lock = Lock()
+
+        # Start processes
         for process in self.process_list:
             process.start()
         return
     
-def send_winners(socket, agency):
-    msg = "W" + BET_SEPARATOR
-    for winner in agency.winners:
-        msg += winner.document
-        msg += BET_SEPARATOR
-    msg = msg[0:len(msg) - 1]
-    print(f"Sending winners msg to client: {agency}, message: {msg}")
-    msg = fill_padding(msg)
-    socket.send(msg.encode('utf-8'))
-
-def to_bytes(string):
-    b = bytes(string, "utf-8")
-    return b
+def select_winners(agency, bet_lock):
+    winners = []
+    with bet_lock:
+        for bet in load_bets():
+            if has_won(bet) and bet.agency == int(agency):
+                winners.append(bet)
+    return winners
 
 
-def remove_padding(msg: str) -> str:
-    # Drop Padding
-    msg = msg.split(PADDING)
-    return msg[0]
-
-def parse_message(msg: str) -> list[str]:
-    msg = msg.split(BET_SEPARATOR)
-    return msg
-
-def parse_bets_message(msg: [str]) -> list[Bet]:
-    bets = []
-    id = msg[0]
-    for i in range(1, len(msg)):
-        bet = get_bet(msg[i], id)
-        bets.append(bet)
-    return bets
 
 
-def get_bet(msg: str, id) -> Bet:
-    fields = msg.split(SEPARATOR)
-    return Bet(id, fields[0], fields[1], fields[2], fields[3], fields[4])
 
-def fill_padding(msg: str) -> str:
-    b = to_bytes(msg)
-    extra_padding_required = PACKET_SIZE - len(b)
-    extra_padding = PADDING * extra_padding_required
-    msg += extra_padding
-    return msg
