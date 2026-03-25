@@ -1,3 +1,4 @@
+import os
 import socket
 import logging
 from common.utils import Bet
@@ -17,7 +18,7 @@ class Server:
         self._server_socket.listen(listen_backlog)
         self.running = True
         self.agencies = {}
-        self.remaining_agencies = 0
+        self.remaining_agencies = int(os.getenv("AGENCY_AMOUNT"))
         self.winner_selected = False
 
     def run(self):
@@ -55,7 +56,6 @@ class Server:
                 agency = msg[1]
                 self.agencies[agency].finished = True
                 self.remaining_agencies -= 1
-                print(f"Remaining agencies: {self.remaining_agencies}")
                 if self.remaining_agencies == 0:
                     # Launch winners
                     logging.info("action: sorteo | result: success")
@@ -63,7 +63,6 @@ class Server:
                     self.winner_selected = True
             elif msg[0] == "A":
                 agency = msg[1]
-                print("A msg")
                 if self.winner_selected:
                     # Launch winners
                     send_winners(client_sock, self.agencies[agency])
@@ -76,8 +75,6 @@ class Server:
                 # Check if its in dictionary
                     if msg[0] not in self.agencies:
                         self.agencies[msg[0]] = Agency(addr)
-                        self.remaining_agencies += 1
-                        print(f"Remaining agencies: {self.remaining_agencies}")
 
                     # Message logic
                     bets = parse_bets_message(msg)
@@ -89,7 +86,7 @@ class Server:
                     client_sock.close()
             else:
                 # Unknown msg
-                print("Unknown msg")
+                logging.error("action: receive_message | result: fail | error: Unknown message")
         except OSError as e:
             logging.error("action: receive_message | result: fail | error: {e}")
             client_sock.close()
@@ -120,19 +117,12 @@ class Server:
             if has_won(bet):
                 self.agencies[str(bet.agency)].winners.add(bet)
         
-        for _, agency in self.agencies.items():
-            print("WINNERS FROM AGENCY")
-            # print(agency.winners)
-            for winner in agency.winners:
-                print(winner.document)
-
 def send_winners(socket, agency):
     msg = "W" + BET_SEPARATOR
     for winner in agency.winners:
         msg += winner.document
         msg += BET_SEPARATOR
     msg = msg[0:len(msg) - 1]
-    print(f"Sending winners msg to client: {agency}, message: {msg}")
     msg = fill_padding(msg)
     socket.send(msg.encode('utf-8'))
 

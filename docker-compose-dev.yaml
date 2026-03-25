@@ -6,6 +6,7 @@ services:
     entrypoint: python3 /main.py
     environment:
       - PYTHONUNBUFFERED=1
+      - AGENCY_AMOUNT=3
     networks:
       - testing_net
     volumes:
@@ -52,34 +53,6 @@ services:
     volumes:
       - /home/fede/Uba/Distribuidos/tp0/tp/client/config.yaml:/config.yaml
       - /home/fede/Uba/Distribuidos/tp0/tp/.data/agency-3.csv:/agency-3.csv
-
-  client4:
-    container_name: client4
-    image: client:latest
-    entrypoint: /client
-    environment:
-      - CLI_ID=4
-    networks:
-      - testing_net
-    depends_on:
-      - server
-    volumes:
-      - /home/fede/Uba/Distribuidos/tp0/tp/client/config.yaml:/config.yaml
-      - /home/fede/Uba/Distribuidos/tp0/tp/.data/agency-4.csv:/agency-4.csv
-
-  client5:
-    container_name: client5
-    image: client:latest
-    entrypoint: /client
-    environment:
-      - CLI_ID=5
-    networks:
-      - testing_net
-    depends_on:
-      - server
-    volumes:
-      - /home/fede/Uba/Distribuidos/tp0/tp/client/config.yaml:/config.yaml
-      - /home/fede/Uba/Distribuidos/tp0/tp/.data/agency-5.csv:/agency-5.csv
 
 
 networks:
