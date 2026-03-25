@@ -125,7 +125,7 @@ func (c *Client) StartClientLoop() {
 	}
 
 	// Recibir ganadores
-	fmt.Println("Ganadores:", msg)
+	log.Infof("action: receive_message | result: fail | Ganadores: %s", msg)
 	values := SplitMsg(msg)
 	cantidadDeGanadores := len(values) - 1
 	c.conn.Close()
