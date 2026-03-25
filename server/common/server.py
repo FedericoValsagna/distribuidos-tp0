@@ -73,7 +73,7 @@ class Server:
                     else:
                         send(client_sock, hold_message())
                         client_sock.close()
-            elif msg[0] in {"1", "2", "3", "4", "5"}:
+            elif msg[0].isdigit():
                 # Message logic
                 bets = parse_bets_message(msg)
                 with self.bet_lock:
