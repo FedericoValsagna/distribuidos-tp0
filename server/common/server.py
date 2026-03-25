@@ -7,7 +7,7 @@ from common.utils import store_bets
 from common.utils import load_bets
 from common.utils import has_won
 from common.agency import Agency
-from common.messages import ASKING_MESSAGE, NOTIFY_MESSAGGE, apuesta_recivida_message, hold_message, winners_message
+from common.messages import NOTIFY_MESSAGGE, apuesta_recivida_message, hold_message, winners_message
 from common.parser import PACKET_SIZE, fill_padding, parse_bets_message, parse_message, remove_padding, send
 class Server:
     def __init__(self, port, listen_backlog):
@@ -57,12 +57,18 @@ class Server:
                 with self.remaining_agencies_lock:
                     self.remaining_agencies.value -= 1
                     if self.remaining_agencies.value == 0:
+                        # Launch winners
                         logging.info("action: sorteo | result: success")
+                        # with self.bet_lock:
+                        #     self.choose_winners()
+                        #     self.winner_selected = True
             elif msg[0] == ASKING_MESSAGE:
                 agency = msg[1]
                 with self.remaining_agencies_lock:
                     if self.remaining_agencies.value == 0:
+                        # Launch winners
                         winners = select_winners(agency, self.bet_lock)
+                        print(f"WINNERS for agency {agency}: {winners}")
                         send(client_sock, winners_message(winners))
                     else:
                         send(client_sock, hold_message())
@@ -77,7 +83,7 @@ class Server:
                 client_sock.close()
             else:
                 # Unknown msg
-                logging.error("action: receive_message | result: fail | error: Unknown msg")
+                print("Unknown msg")
         except OSError as e:
             logging.error("action: receive_message | result: fail | error: {e}")
             client_sock.close()

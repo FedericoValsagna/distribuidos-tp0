@@ -125,6 +125,7 @@ func (c *Client) StartClientLoop() {
 	}
 
 	// Recibir ganadores
+	fmt.Println("Ganadores:", msg)
 	values := SplitMsg(msg)
 	cantidadDeGanadores := len(values) - 1
 	c.conn.Close()
@@ -132,7 +133,7 @@ func (c *Client) StartClientLoop() {
 	log.Infof("action: loop_finished | result: success | client_id: %v", c.config.ID)
 }
 func (c *Client) SendMessage(msg string) {
-	log.Infof("action: consulta_ganadores | result: success | message: %s", msg)
+	fmt.Println("Mensaje enviado:", msg)
 	msg = FillPadding(msg)
 	io.WriteString(c.conn, msg)
 }
