@@ -2,6 +2,9 @@ import socket
 import logging
 from common.utils import Bet
 from common.utils import store_bets
+from common.utils import load_bets
+from common.utils import has_won
+from common.agency import Agency
 PACKET_SIZE = 8192
 PADDING = '$'
 SEPARATOR = '_'
@@ -13,6 +16,9 @@ class Server:
         self._server_socket.bind(('', port))
         self._server_socket.listen(listen_backlog)
         self.running = True
+        self.agencies = {}
+        self.remaining_agencies = 0
+        self.winner_selected = False
 
     def run(self):
         """
@@ -27,7 +33,7 @@ class Server:
         # the server
         while self.running:
             client_sock = self.__accept_new_connection()
-            if client_sock != None:
+            if client_sock != None and self.running:
                 self.__handle_client_connection(client_sock)
 
     def __handle_client_connection(self, client_sock):
@@ -39,20 +45,53 @@ class Server:
         """
         try:
             msg = client_sock.recv(PACKET_SIZE).decode('utf-8')
+            msg = remove_padding(msg)
             if len(msg) == 0:
-                client_sock.close()
                 return
             addr = client_sock.getpeername()
             logging.info(f'action: receive_message | result: success | ip: {addr[0]} | msg: {msg}')
-            bets = parse_message(msg)
-            store_bets(bets)
-            logging.info(f'action: apuesta_recibida | result: success | cantidad: {len(bets)}')
-            msg = "Apuesta recibida"
-            msg = fill_padding(msg)
-            client_sock.send(msg.encode('utf-8'))
+            msg = parse_message(msg)
+            if msg[0] == "N":
+                agency = msg[1]
+                self.agencies[agency].finished = True
+                self.remaining_agencies -= 1
+                print(f"Remaining agencies: {self.remaining_agencies}")
+                if self.remaining_agencies == 0:
+                    # Launch winners
+                    logging.info("action: sorteo | result: success")
+                    self.choose_winners()
+                    self.winner_selected = True
+            elif msg[0] == "A":
+                agency = msg[1]
+                print("A msg")
+                if self.winner_selected:
+                    # Launch winners
+                    send_winners(client_sock, self.agencies[agency])
+                else:
+                    msg = "S"
+                    msg = fill_padding(msg)
+                    client_sock.send(msg.encode('utf-8'))
+                    client_sock.close()
+            elif msg[0] in {"1", "2", "3", "4", "5"}:
+                # Check if its in dictionary
+                    if msg[0] not in self.agencies:
+                        self.agencies[msg[0]] = Agency(addr)
+                        self.remaining_agencies += 1
+                        print(f"Remaining agencies: {self.remaining_agencies}")
+
+                    # Message logic
+                    bets = parse_bets_message(msg)
+                    store_bets(bets)
+                    logging.info(f'action: apuesta_recibida | result: success | cantidad: {len(bets)}')
+                    msg = "Apuesta recibida"
+                    msg = fill_padding(msg)
+                    client_sock.send(msg.encode('utf-8'))
+                    client_sock.close()
+            else:
+                # Unknown msg
+                print("Unknown msg")
         except OSError as e:
             logging.error("action: receive_message | result: fail | error: {e}")
-        finally:
             client_sock.close()
 
     def __accept_new_connection(self):
@@ -75,18 +114,43 @@ class Server:
         self.running = False
         self._server_socket.close()
         return
+    
+    def choose_winners(self):
+        for bet in load_bets():
+            if has_won(bet):
+                self.agencies[str(bet.agency)].winners.add(bet)
+        
+        for _, agency in self.agencies.items():
+            print("WINNERS FROM AGENCY")
+            # print(agency.winners)
+            for winner in agency.winners:
+                print(winner.document)
+
+def send_winners(socket, agency):
+    msg = "W" + BET_SEPARATOR
+    for winner in agency.winners:
+        msg += winner.document
+        msg += BET_SEPARATOR
+    msg = msg[0:len(msg) - 1]
+    print(f"Sending winners msg to client: {agency}, message: {msg}")
+    msg = fill_padding(msg)
+    socket.send(msg.encode('utf-8'))
 
 def to_bytes(string):
     b = bytes(string, "utf-8")
     return b
 
 
-def parse_message(msg: str) -> list[Bet]:
+def remove_padding(msg: str) -> str:
     # Drop Padding
     msg = msg.split(PADDING)
-    msg = msg[0]
+    return msg[0]
+
+def parse_message(msg: str) -> list[str]:
     msg = msg.split(BET_SEPARATOR)
-    # Get Fields
+    return msg
+
+def parse_bets_message(msg: [str]) -> list[Bet]:
     bets = []
     id = msg[0]
     for i in range(1, len(msg)):

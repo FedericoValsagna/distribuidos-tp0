@@ -71,8 +71,6 @@ func (c *Client) StartClientLoop() {
 	// Messages if the message amount threshold has not been surpassed
 	// Create the connection the server in every loop iteration. Send an
 
-	fmt.Println("BATCH AMOUNT:", c.config.BatchAmount)
-
 	file, err := os.Open(fmt.Sprintf(AgencyFilepath, c.config.ID))
 	c.file = file
 	if err != nil {
@@ -100,18 +98,46 @@ func (c *Client) StartClientLoop() {
 	}
 	file.Close()
 	c.conn.Close()
+
+	// Notify Server
+	c.createClientSocket()
+	msg := NotifyMessage(c.config.ID)
+	c.SendMessage(msg)
+	c.conn.Close()
+	// Ask for winners
+	c.createClientSocket()
+	msg = AskResultsMessage(c.config.ID)
+	c.SendMessage(msg)
+	msg, _ = c.ReceiveMessage()
+	msg = ParseMessage(msg)
+	c.conn.Close()
+	for msg == "S" {
+		c.createClientSocket()
+		msg = AskResultsMessage(c.config.ID)
+		c.SendMessage(msg)
+		msg, _ = c.ReceiveMessage()
+		c.conn.Close()
+		time.Sleep(1000 * time.Millisecond)
+	}
+
+	// Recibir ganadores
+	fmt.Println("Ganadores:", msg)
+	values := SplitMsg(msg)
+	cantidadDeGanadores := len(values) - 1
+	c.conn.Close()
+	log.Infof("action: consulta_ganadores | result: success | cant_ganadores: %v", cantidadDeGanadores)
 	log.Infof("action: loop_finished | result: success | client_id: %v", c.config.ID)
 }
-
 func (c *Client) SendMessage(msg string) {
+	fmt.Println("Mensaje enviado:", msg)
 	msg = FillPadding(msg)
-	fmt.Println("Message sent:", msg)
 	io.WriteString(c.conn, msg)
 }
 
 func (c *Client) ReceiveMessage() (string, error) {
 	buffer := make([]byte, PacketSize)
 	_, err := io.ReadFull(bufio.NewReader(c.conn), buffer)
+
 	if err != nil {
 		log.Errorf("action: receive_message | result: fail | client_id: %v | error: %v",
 			c.config.ID,
@@ -120,7 +146,7 @@ func (c *Client) ReceiveMessage() (string, error) {
 		return "", err
 	}
 	msg := string(buffer)
-	ParseMessage(msg)
+	msg = ParseMessage(msg)
 	log.Infof("action: receive_message | result: success | client_id: %v | msg: %v",
 		c.config.ID,
 		msg,
@@ -158,7 +184,6 @@ func ReadLine(f *os.File) (string, error) {
 }
 
 func lineToClientInfo(line string) Bet {
-	// fmt.Println("LINEA:", x)
 	values := strings.Split(line, ",")
 	clientInfo := Bet{
 		Nombre:     values[0],

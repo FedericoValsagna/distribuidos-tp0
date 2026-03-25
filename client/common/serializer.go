@@ -35,3 +35,17 @@ func ParseMessage(msg string) string {
 func RemovePadding(msg string) string {
 	return strings.Split(msg, Padding)[0]
 }
+
+func NotifyMessage(agencyID string) string {
+	msg := "N!" + agencyID
+	return msg
+}
+
+func AskResultsMessage(agencyID string) string {
+	msg := "A!" + agencyID
+	return msg
+}
+
+func SplitMsg(msg string) []string {
+	return strings.Split(msg, "!")
+}
