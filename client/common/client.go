@@ -133,7 +133,7 @@ func (c *Client) StartClientLoop() {
 	log.Infof("action: loop_finished | result: success | client_id: %v", c.config.ID)
 }
 func (c *Client) SendMessage(msg string) {
-	fmt.Println("Mensaje enviado:", msg)
+	log.Infof("action: loop_finished | result: success | message sent: %s", msg)
 	msg = FillPadding(msg)
 	io.WriteString(c.conn, msg)
 }
