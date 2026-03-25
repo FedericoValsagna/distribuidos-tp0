@@ -1,3 +1,4 @@
+from multiprocessing import Lock, Process, Queue, Value
 import socket
 import logging
 from common.utils import Bet
@@ -19,6 +20,7 @@ class Server:
         self.agencies = {}
         self.remaining_agencies = 0
         self.winner_selected = False
+        self.create_processes()
 
     def run(self):
         """
@@ -28,13 +30,15 @@ class Server:
         communication with a client. After client with communucation
         finishes, servers starts to accept new connections again
         """
-
-        # TODO: Modify this program to handle signal to graceful shutdown
-        # the server
+        i = 0
         while self.running:
             client_sock = self.__accept_new_connection()
             if client_sock != None and self.running:
-                self.__handle_client_connection(client_sock)
+                self.queue_list[i].put(client_sock)
+                i += 1
+                if i == 5:
+                    i = 0
+                # self.__handle_client_connection(client_sock)
 
     def __handle_client_connection(self, client_sock):
         """
@@ -113,6 +117,10 @@ class Server:
     def graceful_shutdown(self, signum, frame):
         self.running = False
         self._server_socket.close()
+        with self.working_lock:
+            self.working.value = False
+        for process in self.process_list:
+            process.join()
         return
     
     def choose_winners(self):
@@ -126,6 +134,42 @@ class Server:
             for winner in agency.winners:
                 print(winner.document)
 
+    def task_assignment(self, queue: Queue, working, working_lock):
+        while True:
+            try:
+                task = queue.get(timeout=1)
+                self.__handle_client_connection(task)
+            except:
+                working_lock.acquire()
+                if not working.value:
+                    working_lock.release()
+                    break
+                working_lock.release()
+
+    def create_processes(self):
+        process_list = []
+        queue_list = []
+        working = Value('b', True)
+        working_lock = Lock()
+        queue_list.append(Queue())
+        queue_list.append(Queue())
+        queue_list.append(Queue())
+        queue_list.append(Queue())
+        queue_list.append(Queue())
+        process_list.append(Process(target=self.task_assignment, args=(queue_list[0], working, working_lock)))
+        process_list.append(Process(target=self.task_assignment, args=(queue_list[1], working, working_lock)))
+        process_list.append(Process(target=self.task_assignment, args=(queue_list[2], working, working_lock)))
+        process_list.append(Process(target=self.task_assignment, args=(queue_list[3], working, working_lock)))
+        process_list.append(Process(target=self.task_assignment, args=(queue_list[4], working, working_lock)))
+        self.process_list = process_list
+        self.queue_list = queue_list
+        self.working = working
+        self.working_lock = working_lock
+        
+        for process in self.process_list:
+            process.start()
+        return
+    
 def send_winners(socket, agency):
     msg = "W" + BET_SEPARATOR
     for winner in agency.winners:
