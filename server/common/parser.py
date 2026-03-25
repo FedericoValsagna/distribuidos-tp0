@@ -1,3 +1,5 @@
+import logging
+
 from common.utils import Bet
 
 
@@ -41,3 +43,12 @@ def parse_bets_message(msg) -> list[Bet]:
 def send(socket, msg):
     msg = fill_padding(msg)
     socket.send(msg.encode('utf-8'))
+
+def read_message(socket):
+    msg = socket.recv(PACKET_SIZE).decode('utf-8')
+    msg = remove_padding(msg)
+    addr = socket.getpeername()
+    logging.info(f'action: receive_message | result: success | ip: {addr[0]} | msg: {msg}')
+    msg = parse_message(msg)
+    return msg
+

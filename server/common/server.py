@@ -8,7 +8,7 @@ from common.utils import load_bets
 from common.utils import has_won
 from common.agency import Agency
 from common.messages import ASKING_MESSAGE, NOTIFY_MESSAGGE, apuesta_recivida_message, hold_message, winners_message
-from common.parser import PACKET_SIZE, fill_padding, parse_bets_message, parse_message, remove_padding, send
+from common.parser import PACKET_SIZE, fill_padding, parse_bets_message, parse_message, read_message, remove_padding, send
 class Server:
     def __init__(self, port, listen_backlog):
         # Initialize server socket
@@ -44,11 +44,7 @@ class Server:
         client socket will also be closed
         """
         try:
-            msg = client_sock.recv(PACKET_SIZE).decode('utf-8')
-            msg = remove_padding(msg)
-            addr = client_sock.getpeername()
-            logging.info(f'action: receive_message | result: success | ip: {addr[0]} | msg: {msg}')
-            msg = parse_message(msg)
+            msg = read_message(client_sock)
             if msg[0] == NOTIFY_MESSAGGE:
                 agency = msg[1]
                 with self.remaining_agencies_lock:
@@ -153,8 +149,4 @@ def select_winners(agency, bet_lock):
             if has_won(bet) and bet.agency == int(agency):
                 winners.append(bet)
     return winners
-
-
-
-
 
