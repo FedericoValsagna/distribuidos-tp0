@@ -35,7 +35,6 @@ class Server:
                 i += 1
                 if i == 5:
                     i = 0
-                # self.__handle_client_connection(client_sock)
 
     def __handle_client_connection(self, client_sock):
         """
@@ -47,8 +46,6 @@ class Server:
         try:
             msg = client_sock.recv(PACKET_SIZE).decode('utf-8')
             msg = remove_padding(msg)
-            if len(msg) == 0:
-                return
             addr = client_sock.getpeername()
             logging.info(f'action: receive_message | result: success | ip: {addr[0]} | msg: {msg}')
             msg = parse_message(msg)
@@ -63,7 +60,6 @@ class Server:
                 with self.remaining_agencies_lock:
                     if self.remaining_agencies.value == 0:
                         winners = select_winners(agency, self.bet_lock)
-                        print(f"WINNERS for agency {agency}: {winners}")
                         send(client_sock, winners_message(winners))
                     else:
                         send(client_sock, hold_message())
