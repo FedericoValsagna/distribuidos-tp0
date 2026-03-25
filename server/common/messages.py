@@ -2,9 +2,12 @@ from common.parser import BET_SEPARATOR
 
 NOTIFY_MESSAGGE = "N"
 ASKING_MESSAGE = "A"
+WINNERS_MESSAGE = "W"
+HOLD_MESSAGE = "S"
+RECEIVED_MESSAGE = "R"
 
 def winners_message(winners):
-    msg = "W" + BET_SEPARATOR
+    msg = WINNERS_MESSAGE + BET_SEPARATOR
     for winner in winners:
         msg += winner.document
         msg += BET_SEPARATOR
@@ -12,7 +15,7 @@ def winners_message(winners):
     return msg
 
 def hold_message():
-    return "S"
+    return HOLD_MESSAGE
 
 def apuesta_recivida_message():
-    return "Apuesta recibida"
+    return RECEIVED_MESSAGE

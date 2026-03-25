@@ -5,6 +5,11 @@ import (
 	"strings"
 )
 
+const receivedMessage = "R"
+const holdMessage = "S"
+const notifyMessage = "N"
+const askResultsMessage = "A"
+
 func BetMessage(bet Bet) string {
 	msg := fmt.Sprintf("%s%c%s%c%s%c%s%c%s%c", bet.Nombre, Separator, bet.Apellido, Separator, bet.Documento, Separator, bet.Nacimiento, Separator, bet.Numero, Separator)
 	return msg
@@ -37,15 +42,15 @@ func RemovePadding(msg string) string {
 }
 
 func NotifyMessage(agencyID string) string {
-	msg := "N!" + agencyID
+	msg := notifyMessage + BetSeparator + agencyID
 	return msg
 }
 
 func AskResultsMessage(agencyID string) string {
-	msg := "A!" + agencyID
+	msg := askResultsMessage + BetSeparator + agencyID
 	return msg
 }
 
 func SplitMsg(msg string) []string {
-	return strings.Split(msg, "!")
+	return strings.Split(msg, BetSeparator)
 }

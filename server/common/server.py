@@ -57,16 +57,11 @@ class Server:
                 with self.remaining_agencies_lock:
                     self.remaining_agencies.value -= 1
                     if self.remaining_agencies.value == 0:
-                        # Launch winners
                         logging.info("action: sorteo | result: success")
-                        # with self.bet_lock:
-                        #     self.choose_winners()
-                        #     self.winner_selected = True
             elif msg[0] == ASKING_MESSAGE:
                 agency = msg[1]
                 with self.remaining_agencies_lock:
                     if self.remaining_agencies.value == 0:
-                        # Launch winners
                         winners = select_winners(agency, self.bet_lock)
                         print(f"WINNERS for agency {agency}: {winners}")
                         send(client_sock, winners_message(winners))

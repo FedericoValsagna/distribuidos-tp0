@@ -95,7 +95,7 @@ func (c *Client) StartClientLoop() {
 			c.conn.Close()
 			return
 		}
-		if msg == "Apuesta recibida" {
+		if msg == receivedMessage {
 			log.Infof("action: apuesta_enviada | result: success | dni: %s | numero: %s", c.info.Documento, c.info.Numero)
 		}
 		c.conn.Close()
@@ -115,7 +115,7 @@ func (c *Client) StartClientLoop() {
 	msg, _ = c.ReceiveMessage()
 	msg = ParseMessage(msg)
 	c.conn.Close()
-	for msg == "S" {
+	for msg == holdMessage {
 		c.createClientSocket()
 		msg = AskResultsMessage(c.config.ID)
 		c.SendMessage(msg)
