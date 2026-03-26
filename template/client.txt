@@ -1,0 +1,14 @@
+  client#:
+    container_name: client#
+    image: client:latest
+    entrypoint: /client
+    environment:
+      - CLI_ID=#
+    networks:
+      - testing_net
+    depends_on:
+      - server
+    volumes:
+      - PWD/client/config.yaml:/config.yaml
+      - PWD/.data/agency-#.csv:/agency-#.csv
+

@@ -1,0 +1,14 @@
+name: tp0
+services:
+  server:
+    container_name: server
+    image: server:latest
+    entrypoint: python3 /main.py
+    environment:
+      - PYTHONUNBUFFERED=1
+      - AGENCY_AMOUNT=#
+    networks:
+      - testing_net
+    volumes:
+      - PWD/server/config.ini:/config.ini
+

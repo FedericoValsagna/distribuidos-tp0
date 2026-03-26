@@ -3,7 +3,10 @@ package common
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"net"
+	"os"
+	"strings"
 	"time"
 
 	"github.com/op/go-logging"
@@ -17,20 +20,33 @@ type ClientConfig struct {
 	ServerAddress string
 	LoopAmount    int
 	LoopPeriod    time.Duration
+	BatchAmount   int
+}
+type Bet struct {
+	Nombre     string
+	Apellido   string
+	Documento  string
+	Nacimiento string
+	Numero     string
 }
 
 // Client Entity that encapsulates how
 type Client struct {
-	config ClientConfig
-	conn   net.Conn
+	config  ClientConfig
+	conn    net.Conn
+	running bool
+	info    Bet
+	file    *os.File
 }
 
 // NewClient Initializes a new client receiving the configuration
 // as a parameter
-func NewClient(config ClientConfig) *Client {
+func NewClient(config ClientConfig, info Bet) *Client {
 	client := &Client{
 		config: config,
+		info:   info,
 	}
+	client.running = true
 	return client
 }
 
@@ -52,38 +68,162 @@ func (c *Client) createClientSocket() error {
 
 // StartClientLoop Send messages to the client until some time threshold is met
 func (c *Client) StartClientLoop() {
-	// There is an autoincremental msgID to identify every message sent
 	// Messages if the message amount threshold has not been surpassed
-	for msgID := 1; msgID <= c.config.LoopAmount; msgID++ {
-		// Create the connection the server in every loop iteration. Send an
+	// Create the connection the server in every loop iteration. Send an
+
+	file, err := os.Open(fmt.Sprintf(AgencyFilepath, c.config.ID))
+	c.file = file
+	if err != nil {
+		log.Errorf("Error reading file")
+		return
+	}
+	keepLooping := true
+	for keepLooping {
 		c.createClientSocket()
-
-		// TODO: Modify the send to avoid short-write
-		fmt.Fprintf(
-			c.conn,
-			"[CLIENT %v] Message N°%v\n",
-			c.config.ID,
-			msgID,
-		)
-		msg, err := bufio.NewReader(c.conn).ReadString('\n')
-		c.conn.Close()
-
+		bets, err := GetNextBets(file, c.config.BatchAmount)
+		if err == io.EOF {
+			keepLooping = false
+		}
+		if len(bets) == 0 {
+			c.conn.Close()
+			break
+		}
+		msg := BatchBetMessage(bets, c.config.ID)
+		c.SendMessage(msg)
+		msg, err = c.ReceiveMessage()
 		if err != nil {
-			log.Errorf("action: receive_message | result: fail | client_id: %v | error: %v",
-				c.config.ID,
-				err,
-			)
+			c.conn.Close()
 			return
 		}
-
-		log.Infof("action: receive_message | result: success | client_id: %v | msg: %v",
-			c.config.ID,
-			msg,
-		)
-
-		// Wait a time between sending one message and the next one
-		time.Sleep(c.config.LoopPeriod)
-
+		if msg == "Apuesta recibida" {
+			log.Infof("action: apuesta_enviada | result: success | dni: %s | numero: %s", c.info.Documento, c.info.Numero)
+		}
+		c.conn.Close()
 	}
+	file.Close()
+	c.conn.Close()
+
+	// Notify Server
+	c.createClientSocket()
+	msg := NotifyMessage(c.config.ID)
+	c.SendMessage(msg)
+	c.conn.Close()
+	// Ask for winners
+	c.createClientSocket()
+	msg = AskResultsMessage(c.config.ID)
+	c.SendMessage(msg)
+	msg, _ = c.ReceiveMessage()
+	msg = ParseMessage(msg)
+	c.conn.Close()
+	for msg == "S" {
+		c.createClientSocket()
+		msg = AskResultsMessage(c.config.ID)
+		c.SendMessage(msg)
+		msg, _ = c.ReceiveMessage()
+		c.conn.Close()
+		time.Sleep(1000 * time.Millisecond)
+	}
+
+	// Recibir ganadores
+	fmt.Println("Ganadores:", msg)
+	values := SplitMsg(msg)
+	cantidadDeGanadores := len(values) - 1
+	c.conn.Close()
+	log.Infof("action: consulta_ganadores | result: success | cant_ganadores: %v", cantidadDeGanadores)
 	log.Infof("action: loop_finished | result: success | client_id: %v", c.config.ID)
+}
+func (c *Client) SendMessage(msg string) {
+	fmt.Println("Mensaje enviado:", msg)
+	msg = FillPadding(msg)
+	io.WriteString(c.conn, msg)
+}
+
+func (c *Client) ReceiveMessage() (string, error) {
+	buffer := make([]byte, PacketSize)
+	_, err := io.ReadFull(bufio.NewReader(c.conn), buffer)
+
+	if err != nil {
+		log.Errorf("action: receive_message | result: fail | client_id: %v | error: %v",
+			c.config.ID,
+			err,
+		)
+		return "", err
+	}
+	msg := string(buffer)
+	msg = ParseMessage(msg)
+	log.Infof("action: receive_message | result: success | client_id: %v | msg: %v",
+		c.config.ID,
+		msg,
+	)
+	return msg, nil
+}
+
+func (c *Client) GracefulShutdown() {
+	c.running = false
+	c.conn.Close()
+	c.file.Close()
+	log.Infof("action: closing_socket | result: success")
+}
+
+func ReadLine(f *os.File) (string, error) {
+	buf := make([]byte, 1)
+	byteArray := make([]byte, 0)
+	for {
+		_, err := f.Read(buf)
+		if err != nil && err != io.EOF {
+			return "", err
+		}
+		if err == io.EOF {
+			line := string(byteArray)
+			return line, err
+		}
+		if string(buf) == "\n" {
+			break
+		}
+		byteArray = append(byteArray, buf[0])
+	}
+	line := string(byteArray)
+	return line, nil
+
+}
+
+func lineToClientInfo(line string) Bet {
+	values := strings.Split(line, ",")
+	clientInfo := Bet{
+		Nombre:     values[0],
+		Apellido:   values[1],
+		Documento:  values[2],
+		Nacimiento: values[3],
+		Numero:     values[4],
+	}
+	return clientInfo
+}
+
+func GetNextBets(file *os.File, amount int) ([]Bet, error) {
+	bets := make([]Bet, 0)
+	for i := 0; i < amount; i++ {
+		bet, err := GetNextBet(file)
+		if err == io.EOF {
+			return bets, err
+		}
+		if err != nil {
+			return bets, err
+		}
+		bets = append(bets, bet)
+	}
+	return bets, nil
+}
+
+func GetNextBet(file *os.File) (Bet, error) {
+	line, err := ReadLine(file)
+	if err == io.EOF {
+		if len(line) > 0 {
+			return lineToClientInfo(line), err
+		}
+		return Bet{}, err
+	}
+	if err != nil {
+		return Bet{}, err
+	}
+	return lineToClientInfo(line), nil
 }

@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 	"os"
+	"os/signal"
 	"strings"
+	"syscall"
 	"time"
 
 	"github.com/op/go-logging"
@@ -87,6 +89,7 @@ func PrintConfig(v *viper.Viper) {
 		v.GetInt("loop.amount"),
 		v.GetDuration("loop.period"),
 		v.GetString("log.level"),
+		v.GetInt("batch.maxAmount"),
 	)
 }
 
@@ -108,8 +111,29 @@ func main() {
 		ID:            v.GetString("id"),
 		LoopAmount:    v.GetInt("loop.amount"),
 		LoopPeriod:    v.GetDuration("loop.period"),
+		BatchAmount:   v.GetInt("batch.maxAmount"),
+	}
+	clientInfo := common.Bet{
+		Nombre:     "Fede",
+		Apellido:   "Valsagna",
+		Documento:  "12345678",
+		Nacimiento: "11-17-2000",
+		Numero:     "1234",
 	}
 
-	client := common.NewClient(clientConfig)
+	client := common.NewClient(clientConfig, clientInfo)
+	go SignalHandling(client)
 	client.StartClientLoop()
+}
+
+func SignalHandling(client *common.Client) {
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, syscall.SIGTERM)
+	for signal := range c {
+		switch signal {
+		case syscall.SIGTERM:
+			client.GracefulShutdown()
+			return
+		}
+	}
 }
