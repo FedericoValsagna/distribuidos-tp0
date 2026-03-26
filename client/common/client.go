@@ -98,7 +98,7 @@ func (c *Client) StartClientLoop() {
 			c.conn.Close()
 			return
 		}
-		if msg == "Apuesta recibida" {
+		if msg == "R" {
 			log.Infof("action: apuesta_enviada | result: success | dni: %s | numero: %s", c.info.Documento, c.info.Numero)
 		}
 		c.conn.Close()

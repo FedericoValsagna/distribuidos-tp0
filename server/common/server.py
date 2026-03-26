@@ -80,7 +80,7 @@ class Server:
                     bets = parse_bets_message(msg)
                     store_bets(bets)
                     logging.info(f'action: apuesta_recibida | result: success | cantidad: {len(bets)}')
-                    msg = "Apuesta recibida"
+                    msg = "R"
                     msg = fill_padding(msg)
                     client_sock.send(msg.encode('utf-8'))
                     client_sock.close()
