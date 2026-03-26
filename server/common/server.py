@@ -2,13 +2,11 @@ from multiprocessing import Lock, Process, Queue, Value
 import os
 import socket
 import logging
-from common.utils import Bet
 from common.utils import store_bets
 from common.utils import load_bets
 from common.utils import has_won
-from common.agency import Agency
 from common.messages import ASKING_MESSAGE, NOTIFY_MESSAGGE, apuesta_recivida_message, hold_message, winners_message
-from common.parser import PACKET_SIZE, fill_padding, parse_bets_message, parse_message, read_message, remove_padding, send
+from common.parser import parse_bets_message, read_message, send
 class Server:
     def __init__(self, port, listen_backlog):
         # Initialize server socket
@@ -103,6 +101,9 @@ class Server:
         return
 
     def task_assignment(self, queue: Queue, working, working_lock):
+        """
+        The worker process loops reading a queue awaiting for a connection to handle. Once it resolves the connection it goes back to looping.
+        """
         while True:
             try:
                 task = queue.get(timeout=1)
@@ -115,6 +116,9 @@ class Server:
                 working_lock.release()
 
     def create_processes(self):
+        """
+        Creates a pool of processes with their respective queues and other sincronization IPC's for multiprocessing handling. It will also start the processes.
+        """
         process_list = []
         queue_list = []
         working = Value('b', True)
@@ -145,6 +149,9 @@ class Server:
         return
     
 def select_winners(agency, bet_lock):
+    """
+    Will return all winners from the given agency.
+    """
     winners = []
     with bet_lock:
         for bet in load_bets():
