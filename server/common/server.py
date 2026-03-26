@@ -94,9 +94,11 @@ class Server:
     def graceful_shutdown(self, signum, frame):
         self.running = False
         self._server_socket.close()
+        logging.info("action: closing_server_socket | result: success")
         with self.working_lock:
             self.working.value = False
         for process in self.process_list:
+            logging.info("action: joining process | result: success")
             process.join()
         return
 

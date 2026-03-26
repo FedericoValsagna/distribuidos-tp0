@@ -165,8 +165,9 @@ func (c *Client) ReceiveMessage() (string, error) {
 func (c *Client) GracefulShutdown() {
 	c.running = false
 	c.conn.Close()
-	c.file.Close()
 	log.Infof("action: closing_socket | result: success")
+	c.file.Close()
+	log.Infof("action: closing_file | result: success")
 }
 
 func ReadLine(f *os.File) (string, error) {
