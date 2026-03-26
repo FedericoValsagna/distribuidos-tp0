@@ -185,8 +185,7 @@ Respetar el formato y contenido las entradas de logs descritas en los ejercicios
 Se optó por un sistema de tamaño fijo de mensajes. Dado que la información del máximo de la cantidad de chunks se encuentra en el cliente y no en el servidor no se calcula un largo máximo fijo preestablecido, sino que se toma el máximo establecido de 8kb por mensaje. Cada mensaje se llena de un caracter '$' para que el largo del mensaje sea de 8kb. Para simplificar la lectura se omite dicho padding en los siguientes ejemplos.
 
 ## Ejemplo de comunicación
-    ![alt text](./ejemplo_comunicación.png)
-
+<img src="./comunicacion.png">
 
 ## Mensajes
 Se toma como principal separador al caracter '!', y el primer caracter delimita el tipo de mensaje. Los mensajes son los siguientes
