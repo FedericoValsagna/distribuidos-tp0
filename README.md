@@ -50,7 +50,7 @@ Se toma como principal separador al caracter '!', y el primer caracter delimita 
 
     Si arranca con un número es un envío de apuestas, dicho número indica la agencia. Luego cada item corresponde a una apuesta particular, y en cada apuesta particular se utiliza un separador secundario '_', separando los campos de nombre, apellido, dni , fecha de nacimiento y numero de apuesta.
 #### Aceptación de apuesta
-    R!
+    R
 #### Finalización de envio de apuestas
     N!2
 
