@@ -46,6 +46,9 @@ func NewClient(config ClientConfig, info Bet) *Client {
 		config: config,
 		info:   info,
 	}
+	if client.config.BatchAmount > MaxBatchAmount {
+		client.config.BatchAmount = MaxBatchAmount
+	}
 	client.running = true
 	return client
 }
@@ -135,6 +138,7 @@ func (c *Client) StartClientLoop() {
 func (c *Client) SendMessage(msg string) {
 	log.Infof("action: loop_finished | result: success | message sent: %s", msg)
 	msg = FillPadding(msg)
+	log.Infof("Largo  paquete: %v", len(msg))
 	io.WriteString(c.conn, msg)
 }
 
