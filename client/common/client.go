@@ -6,7 +6,6 @@ import (
 	"io"
 	"net"
 	"os"
-	"strings"
 	"time"
 
 	"github.com/op/go-logging"
@@ -135,13 +134,15 @@ func (c *Client) StartClientLoop() {
 	log.Infof("action: consulta_ganadores | result: success | cant_ganadores: %v", cantidadDeGanadores)
 	log.Infof("action: loop_finished | result: success | client_id: %v", c.config.ID)
 }
+
+// Sends the message through the socket
 func (c *Client) SendMessage(msg string) {
 	log.Infof("action: loop_finished | result: success | message sent: %s", msg)
 	msg = FillPadding(msg)
-	log.Infof("Largo  paquete: %v", len(msg))
 	io.WriteString(c.conn, msg)
 }
 
+// Receive a message from the socket
 func (c *Client) ReceiveMessage() (string, error) {
 	buffer := make([]byte, PacketSize)
 	_, err := io.ReadFull(bufio.NewReader(c.conn), buffer)
@@ -168,67 +169,4 @@ func (c *Client) GracefulShutdown() {
 	log.Infof("action: closing_socket | result: success")
 	c.file.Close()
 	log.Infof("action: closing_file | result: success")
-}
-
-func ReadLine(f *os.File) (string, error) {
-	buf := make([]byte, 1)
-	byteArray := make([]byte, 0)
-	for {
-		_, err := f.Read(buf)
-		if err != nil && err != io.EOF {
-			return "", err
-		}
-		if err == io.EOF {
-			line := string(byteArray)
-			return line, err
-		}
-		if string(buf) == "\n" {
-			break
-		}
-		byteArray = append(byteArray, buf[0])
-	}
-	line := string(byteArray)
-	return line, nil
-
-}
-
-func lineToClientInfo(line string) Bet {
-	values := strings.Split(line, ",")
-	clientInfo := Bet{
-		Nombre:     values[0],
-		Apellido:   values[1],
-		Documento:  values[2],
-		Nacimiento: values[3],
-		Numero:     values[4],
-	}
-	return clientInfo
-}
-
-func GetNextBets(file *os.File, amount int) ([]Bet, error) {
-	bets := make([]Bet, 0)
-	for i := 0; i < amount; i++ {
-		bet, err := GetNextBet(file)
-		if err == io.EOF {
-			return bets, err
-		}
-		if err != nil {
-			return bets, err
-		}
-		bets = append(bets, bet)
-	}
-	return bets, nil
-}
-
-func GetNextBet(file *os.File) (Bet, error) {
-	line, err := ReadLine(file)
-	if err == io.EOF {
-		if len(line) > 0 {
-			return lineToClientInfo(line), err
-		}
-		return Bet{}, err
-	}
-	if err != nil {
-		return Bet{}, err
-	}
-	return lineToClientInfo(line), nil
 }
