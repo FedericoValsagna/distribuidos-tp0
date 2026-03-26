@@ -6,9 +6,10 @@ services:
     entrypoint: python3 /main.py
     environment:
       - PYTHONUNBUFFERED=1
-      - LOGGING_LEVEL=DEBUG
     networks:
       - testing_net
+    volumes:
+      - /home/fede/Uba/Distribuidos/tp0/tp/server/config.ini:/config.ini
 
   client1:
     container_name: client1
@@ -16,11 +17,14 @@ services:
     entrypoint: /client
     environment:
       - CLI_ID=1
-      - CLI_LOG_LEVEL=DEBUG
     networks:
       - testing_net
     depends_on:
       - server
+    volumes:
+      - /home/fede/Uba/Distribuidos/tp0/tp/client/config.yaml:/config.yaml
+      - /home/fede/Uba/Distribuidos/tp0/tp/.data/agency-1.csv:/agency-1.csv
+
 
 networks:
   testing_net:
