@@ -179,3 +179,30 @@ Se proveen [pruebas automáticas](https://github.com/7574-sistemas-distribuidos/
 
 El incumplimiento de las pruebas es condición de desaprobación, pero su cumplimiento no es suficiente para la aprobación.  Se pide a los alumnos leer atentamente y **tener en cuenta** los criterios de corrección informados  [en el campus](https://campusgrado.fi.uba.ar/mod/page/view.php?id=73393).
 Respetar el formato y contenido las entradas de logs descritas en los ejercicios, pues son las que se chequean en cada uno de los tests.
+
+
+# Protocolo
+Se optó por un sistema de tamaño fijo de mensajes. Dado que la información del máximo de la cantidad de chunks se encuentra en el cliente y no en el servidor no se calcula un largo máximo fijo preestablecido, sino que se toma el máximo establecido de 8kb por mensaje. Cada mensaje se llena de un caracter '$' para que el largo del mensaje sea de 8kb. Para simplificar la lectura se omite dicho padding en los siguientes ejemplos.
+
+## Ejemplo de comunicación
+    ![alt text](./ejemplo_comunicación.png)
+
+
+## Mensajes
+Se toma como principal separador al caracter '!', y el primer caracter delimita el tipo de mensaje. Los mensajes son los siguientes
+#### Batch de apuestas
+    1!Santiago Lionel_Lorca_30904465_1999-03-17_2201_!Agustin Emanuel_Zambrano_21689196_2000-05-10_9325_!Matias_Perez_22332232_1998-02-15_1234_
+
+    Si arranca con un número es un envío de apuestas, dicho número indica la agencia. Luego cada item corresponde a una apuesta particular, y en cada apuesta particular se utiliza un separador secundario '_', separando los campos de nombre, apellido, dni , fecha de nacimiento y numero de apuesta.
+#### Aceptación de apuesta
+    R!
+#### Finalización de envio de apuestas
+    N!
+#### Pedido de ganadores
+    A!
+#### Espera
+    S!
+#### Envio de ganadores
+    W!43030690!43030691
+    
+    Cada ganador se encuentra separado por el separador general.
