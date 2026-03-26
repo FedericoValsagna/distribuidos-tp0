@@ -46,6 +46,9 @@ func NewClient(config ClientConfig, info Bet) *Client {
 		config: config,
 		info:   info,
 	}
+	if client.config.BatchAmount > MaxBatchAmount {
+		client.config.BatchAmount = MaxBatchAmount
+	}
 	client.running = true
 	return client
 }
