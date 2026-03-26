@@ -1,7 +1,7 @@
 ## Ejecución (revisar)
 ### Ej 1
 ```
-./generar-compose 5
+./generar-compose.sh docker-compose-dev.yaml 5
 ```
 ### Ej 2
 ```
@@ -14,27 +14,27 @@ make docker-compose-up
 ```
 ### Ej 4
 ```
-./generar-compose 5
+./generar-compose.sh docker-compose-dev.yaml 5
 make docker-compose-up
 ```
 ### Ej 5
 ```
-./generar-compose 5
+./generar-compose.sh docker-compose-dev.yaml 5
 make docker-compose-up
 ```
 ### Ej 6
 ```
-./generar-compose 5
+./generar-compose.sh docker-compose-dev.yaml 5
 make docker-compose-up
 ```
 ### Ej 7
 ```
-./generar-compose 5
+./generar-compose.sh docker-compose-dev.yaml 5
 make docker-compose-up
 ```
 ### Ej 8
 ```
-./generar-compose 5
+./generar-compose.sh docker-compose-dev.yaml 5
 make docker-compose-up
 ```
 ## Protocolo
