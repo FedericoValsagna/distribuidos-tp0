@@ -1,4 +1,4 @@
-## Ejecución (revisar)
+## Ejecución
 ### Ej 1
 ```
 ./generar-compose.sh docker-compose-dev.yaml 5
