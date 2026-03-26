@@ -68,6 +68,6 @@ Se toma como principal separador al caracter '!', y el primer caracter delimita 
 
 ## Concurrencia
 
-Al crearse el servidor, se crean N procesos (N siendo la cantidad de agencias), cada uno con una queue propia por la cual se les van asignando sockets de conexiones entrantes. Se tiene además un Value booleano con su respectivo Lock el cual indica si el server se encuentra activo o si se debe cerrar para dar por finalizados los procesos.
+Al crearse el servidor, se crean 5 procesos, cada uno con una queue propia por la cual se les van asignando sockets de conexiones entrantes. Se tiene además un Value booleano con su respectivo Lock el cual indica si el server se encuentra activo o si se debe cerrar para dar por finalizados los procesos.
 
 Los procesos también cuentan con un Lock para la escritura y lectura del archivo de apuestas (La función de store_bets y load_bets) y se tiene otro Value con su respectivo Lock, en este caso un int, el cual tiene el valor máximo de agencias y cada vez que se notifica desde una agencia al servidor que se terminaron de enviar las apuestas esta variable decrece como si fuese una barrera, cuando se encuentra en 0 se da por comenzado el sorteo. Entonces, cuando una agencia pide por los ganadores, es esta misma variable la que contiene la información.
