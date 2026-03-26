@@ -84,7 +84,7 @@ func (c *Client) StartClientLoop() {
 	msg = string(buffer)
 	// log.Debugf("Mensaje recibido: '%s'", msg)
 	msg = ParseMessage(msg)
-	if msg == "Apuesta recibida" {
+	if msg == "R" {
 		log.Infof("action: apuesta_enviada | result: success | dni: %s | numero: %s", c.info.Documento, c.info.Numero)
 	}
 

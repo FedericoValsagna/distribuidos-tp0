@@ -46,7 +46,7 @@ class Server:
             bet = parse_message(msg)
             store_bets([bet])
             logging.info(f'action: apuesta_almacenada | result: success | dni: {bet.document} | numero: {bet.number}')
-            msg = "Apuesta recibida"
+            msg = "R"
             msg = fill_padding(msg)
             # print(f"largo del mensaje en bytes: {len(to_bytes(msg))}")
             # print(f"Mensaje enviado: '{msg}'")
