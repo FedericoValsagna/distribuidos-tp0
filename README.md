@@ -52,9 +52,12 @@ Se toma como principal separador al caracter '!', y el primer caracter delimita 
 #### Aceptación de apuesta
     R!
 #### Finalización de envio de apuestas
-    N!
+    N!2
+
+    Donde el número corresponde a la agencia
 #### Pedido de ganadores
-    A!
+    A!3
+    Donde el número corresponde a la agencia
 #### Espera
     S!
 #### Envio de ganadores
