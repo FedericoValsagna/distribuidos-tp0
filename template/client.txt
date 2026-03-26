@@ -1,0 +1,12 @@
+  client#:
+    container_name: client#
+    image: client:latest
+    entrypoint: /client
+    environment:
+      - CLI_ID=#
+      - CLI_LOG_LEVEL=DEBUG
+    networks:
+      - testing_net
+    depends_on:
+      - server
+
